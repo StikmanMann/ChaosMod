@@ -49,6 +49,8 @@ class ChaosEventManager {
   static ticksTillNextEvent = 100;
 
   static init = () => {
+    let objective = world.scoreboard.getObjective("chaosEvents");
+    if(!objective){return;}
     world.scoreboard.removeObjective("chaosEvents");
   };
 

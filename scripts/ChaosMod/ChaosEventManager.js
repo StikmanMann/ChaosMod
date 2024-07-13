@@ -48,6 +48,10 @@ ChaosEventManager.currentEvents = new LinkedList();
 ChaosEventManager.queuedEvent = chaosEventsList[Math.floor(Math.random() * chaosEventsList.length)];
 ChaosEventManager.ticksTillNextEvent = 100;
 ChaosEventManager.init = () => {
+    let objective = world.scoreboard.getObjective("chaosEvents");
+    if (!objective) {
+        return;
+    }
     world.scoreboard.removeObjective("chaosEvents");
 };
 ChaosEventManager.tick = () => {
