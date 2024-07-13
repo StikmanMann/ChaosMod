@@ -14,3 +14,9 @@ GlobalVars.players = world.getAllPlayers();
  */
 GlobalVars.overworld = world.getDimension("overworld");
 GlobalVars.spawn = { x: 150, y: 65, z: 5 };
+world.afterEvents.playerSpawn.subscribe((eventData) => {
+    GlobalVars.getPlayers();
+});
+world.afterEvents.playerLeave.subscribe((eventData) => {
+    GlobalVars.getPlayers();
+});

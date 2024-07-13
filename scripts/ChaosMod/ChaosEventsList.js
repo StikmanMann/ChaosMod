@@ -1,2 +1,6 @@
 import blocksGoBoom from "./Events/BlocksGoBoom";
-export const chaosEventsList = [blocksGoBoom];
+import opeThereGoesGravity from "./Events/OpeThereGoesGravity";
+export const chaosEventsList = [
+    blocksGoBoom,
+    opeThereGoesGravity,
+];
