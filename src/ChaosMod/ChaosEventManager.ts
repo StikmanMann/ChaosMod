@@ -1,9 +1,16 @@
-import { World, world } from "@minecraft/server";
+import {
+  DisplaySlotId,
+  ObjectiveSortOrder,
+  World,
+  world,
+} from "@minecraft/server";
 import { LinkedList } from "dataTypes/linkedList";
 import { TickFunctions } from "staticScripts/tickFunctions";
 import { IChaosEvent } from "./IChaosEvent";
 import { ChaosEventSettings } from "./ChaosEventSettings";
 import { chaosEventsList } from "./ChaosEventsList";
+import { addActionbarMessage } from "hud";
+import { GlobalVars } from "globalVars";
 
 function deepCopy(obj: any) {
   // Check if the value is an object or function, otherwise return it directly
@@ -41,29 +48,32 @@ class ChaosEventManager {
 
   static ticksTillNextEvent = 100;
 
+  static init = () => {
+    world.scoreboard.removeObjective("chaosEvents");
+  };
+
   static tick = () => {
-    ChaosEventManager.eventTick();
-    ChaosEventManager.eventTimer();
+    this.eventTick();
+    this.eventTimer();
+    this.showCurrentEventsScoreboard();
   };
 
   static eventTick = () => {
-    ChaosEventManager.currentEvents.forEach((event) => {
+    this.currentEvents.forEach((event) => {
       event.onChaosTick();
       event.chaosEventTime--;
       if (event.chaosEventTime <= 0) {
-        ChaosEventManager.removeEvent(event);
+        this.removeEvent(event);
       }
     });
   };
 
   static eventTimer = () => {
-    ChaosEventManager.ticksTillNextEvent--;
-    world.sendMessage(
-      `Ticks till next event: ${ChaosEventManager.ticksTillNextEvent} - ${ChaosEventManager.queuedEvent.chaosEventId} `
-    );
-    if (ChaosEventManager.ticksTillNextEvent <= 0) {
-      ChaosEventManager.chooseNextEvent(this.queuedEvent);
-      ChaosEventManager.ticksTillNextEvent = ChaosEventSettings.tickDelay;
+    this.ticksTillNextEvent--;
+
+    if (this.ticksTillNextEvent <= 0) {
+      this.chooseNextEvent(this.queuedEvent);
+      this.ticksTillNextEvent = ChaosEventSettings.tickDelay;
     }
   };
 
@@ -95,12 +105,67 @@ class ChaosEventManager {
 
   static removeEvent(event: IChaosEvent) {
     event.onChaosStop();
+    world.scoreboard
+      .getObjective("chaosEvents")
+      .removeParticipant(event.chaosEventDisplayName as string);
+
     ChaosEventManager.currentEvents.deleteNodeByValue(event);
   }
 
-  static createChaosInformationString = (event: IChaosEvent): String => {
-    return null;
+  static createInformationForNextEvent = (): String => {
+    let combinedString = "";
+    combinedString += `${this.queuedEvent.chaosEventDisplayName} in ${
+      this.ticksTillNextEvent / 20
+    } seconds`;
+
+    return combinedString;
+  };
+
+  static showPlayersInformation = () => {
+    GlobalVars.getPlayers();
+    for (const player of GlobalVars.players) {
+      addActionbarMessage({
+        player: player,
+        message: this.createInformationForNextEvent(),
+        lifetime: 2,
+      });
+    }
+  };
+
+  static showCurrentEventsScoreboard = () => {
+    let objective = world.scoreboard.getObjective("chaosEvents");
+    if (!objective) {
+      objective = world.scoreboard.addObjective(
+        "chaosEvents",
+        "§4§lChaos Events"
+      );
+      objective = world.scoreboard.getObjective("chaosEvents");
+    }
+
+    const sidebarObjective = world.scoreboard.getObjectiveAtDisplaySlot(
+      DisplaySlotId.Sidebar
+    );
+
+    if (!sidebarObjective) {
+      world.scoreboard.setObjectiveAtDisplaySlot(DisplaySlotId.Sidebar, {
+        objective: objective,
+      });
+    } else if (sidebarObjective.objective.id != objective.id) {
+      world.scoreboard.setObjectiveAtDisplaySlot(DisplaySlotId.Sidebar, {
+        objective: objective,
+      });
+    }
+
+    this.currentEvents.forEach((event) => {
+      objective.setScore(
+        event.chaosEventDisplayName as string,
+        event.chaosEventTime
+      );
+    });
   };
 }
 
+ChaosEventManager.init();
+
 TickFunctions.addFunction(ChaosEventManager.tick, 1);
+TickFunctions.addFunction(ChaosEventManager.showPlayersInformation, 2);

@@ -1,3 +1,3 @@
 export class ChaosEventSettings {
 }
-ChaosEventSettings.tickDelay = 100;
+ChaosEventSettings.tickDelay = 1000;
