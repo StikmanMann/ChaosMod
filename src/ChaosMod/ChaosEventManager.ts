@@ -11,6 +11,7 @@ import { ChaosEventSettings } from "./ChaosEventSettings";
 import { chaosEventsList } from "./ChaosEventsList";
 import { addActionbarMessage } from "hud";
 import { GlobalVars } from "globalVars";
+import { Logger } from "staticScripts/Logger";
 
 function deepCopy(obj: any) {
   // Check if the value is an object or function, otherwise return it directly
@@ -50,14 +51,16 @@ class ChaosEventManager {
 
   static init = () => {
     let objective = world.scoreboard.getObjective("chaosEvents");
-    if(!objective){return;}
+    if (!objective) {
+      return;
+    }
     world.scoreboard.removeObjective("chaosEvents");
   };
 
   static tick = () => {
     this.eventTick();
     this.eventTimer();
-    this.showCurrentEventsScoreboard();
+    this.DisplayState.showCurrentEventsScoreboard();
   };
 
   static eventTick = () => {
@@ -107,67 +110,72 @@ class ChaosEventManager {
 
   static removeEvent(event: IChaosEvent) {
     event.onChaosStop();
-    world.scoreboard
-      .getObjective("chaosEvents")
-      .removeParticipant(event.chaosEventDisplayName as string);
+    const objective = world.scoreboard.getObjective("chaosEvents");
+    objective?.removeParticipant(event.chaosEventDisplayName as string) ??
+      Logger.warn("Objective not found.", "Remove Event");
 
     ChaosEventManager.currentEvents.deleteNodeByValue(event);
   }
+  //#region Display
+  static DisplayState = class {
+    static createInformationForNextEvent = (): String => {
+      let combinedString = "";
+      combinedString += `${
+        ChaosEventManager.queuedEvent.chaosEventDisplayName
+      } in ${ChaosEventManager.ticksTillNextEvent / 20} seconds`;
 
-  static createInformationForNextEvent = (): String => {
-    let combinedString = "";
-    combinedString += `${this.queuedEvent.chaosEventDisplayName} in ${
-      this.ticksTillNextEvent / 20
-    } seconds`;
+      return combinedString;
+    };
 
-    return combinedString;
-  };
+    static showPlayersInformation = () => {
+      GlobalVars.getPlayers();
+      for (const player of GlobalVars.players) {
+        addActionbarMessage({
+          player: player,
+          message: this.createInformationForNextEvent(),
+          lifetime: 2,
+        });
+      }
+    };
+    static showCurrentEventsScoreboard = () => {
+      let objective = world.scoreboard.getObjective("chaosEvents");
+      if (!objective) {
+        objective = world.scoreboard.addObjective(
+          "chaosEvents",
+          "§4§lChaos Events"
+        );
+        objective = world.scoreboard.getObjective("chaosEvents");
+      }
 
-  static showPlayersInformation = () => {
-    GlobalVars.getPlayers();
-    for (const player of GlobalVars.players) {
-      addActionbarMessage({
-        player: player,
-        message: this.createInformationForNextEvent(),
-        lifetime: 2,
-      });
-    }
-  };
-
-  static showCurrentEventsScoreboard = () => {
-    let objective = world.scoreboard.getObjective("chaosEvents");
-    if (!objective) {
-      objective = world.scoreboard.addObjective(
-        "chaosEvents",
-        "§4§lChaos Events"
+      const sidebarObjective = world.scoreboard.getObjectiveAtDisplaySlot(
+        DisplaySlotId.Sidebar
       );
-      objective = world.scoreboard.getObjective("chaosEvents");
-    }
 
-    const sidebarObjective = world.scoreboard.getObjectiveAtDisplaySlot(
-      DisplaySlotId.Sidebar
-    );
+      if (!sidebarObjective) {
+        world.scoreboard.setObjectiveAtDisplaySlot(DisplaySlotId.Sidebar, {
+          objective: objective,
+        });
+      } else if (sidebarObjective.objective.id != objective.id) {
+        world.scoreboard.setObjectiveAtDisplaySlot(DisplaySlotId.Sidebar, {
+          objective: objective,
+        });
+      }
 
-    if (!sidebarObjective) {
-      world.scoreboard.setObjectiveAtDisplaySlot(DisplaySlotId.Sidebar, {
-        objective: objective,
+      ChaosEventManager.currentEvents.forEach((event) => {
+        objective.setScore(
+          event.chaosEventDisplayName as string,
+          event.chaosEventTime
+        );
       });
-    } else if (sidebarObjective.objective.id != objective.id) {
-      world.scoreboard.setObjectiveAtDisplaySlot(DisplaySlotId.Sidebar, {
-        objective: objective,
-      });
-    }
-
-    this.currentEvents.forEach((event) => {
-      objective.setScore(
-        event.chaosEventDisplayName as string,
-        event.chaosEventTime
-      );
-    });
+    };
   };
+  //#endregion
 }
 
 ChaosEventManager.init();
 
 TickFunctions.addFunction(ChaosEventManager.tick, 1);
-TickFunctions.addFunction(ChaosEventManager.showPlayersInformation, 2);
+TickFunctions.addFunction(
+  ChaosEventManager.DisplayState.showPlayersInformation,
+  2
+);

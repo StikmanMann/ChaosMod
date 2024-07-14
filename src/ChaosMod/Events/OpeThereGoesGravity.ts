@@ -12,7 +12,7 @@ const gravityStart = () => {
 
 const opeThereGoesGravity: IChaosEvent = {
   chaosEventId: "opeThereGoesGravity",
-  chaosEventDisplayName: "opeThereGoesGravity",
+  chaosEventDisplayName: "Ope There Goes Gravity",
 
   chaosEventUniqueId: "-1",
 

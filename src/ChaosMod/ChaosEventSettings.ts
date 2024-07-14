@@ -1,3 +1,3 @@
 export class ChaosEventSettings {
-  static tickDelay = 1000;
+  static tickDelay = 500;
 }

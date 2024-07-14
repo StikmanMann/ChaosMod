@@ -8,7 +8,7 @@ const gravityStart = () => {
 };
 const opeThereGoesGravity = {
     chaosEventId: "opeThereGoesGravity",
-    chaosEventDisplayName: "opeThereGoesGravity",
+    chaosEventDisplayName: "Ope There Goes Gravity",
     chaosEventUniqueId: "-1",
     chaosEventTime: 100,
     onChaosStart: gravityStart,
