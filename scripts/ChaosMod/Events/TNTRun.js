@@ -12,7 +12,7 @@ const TNTTick = () => {
 };
 export const TNTRun = {
     chaosEventId: "tNTRun",
-    chaosEventDisplayName: "TNTRun",
+    chaosEventDisplayName: "TNT Run",
     chaosEventUniqueId: "-1",
     chaosEventTime: 600,
     onChaosStart: () => { },
