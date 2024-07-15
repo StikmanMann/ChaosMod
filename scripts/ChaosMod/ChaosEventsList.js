@@ -11,9 +11,6 @@ export const chaosEventsList = [
     TNTRun,
     randomEffect,
     allEffects,
-<<<<<<< HEAD
-    typeOrDieTrying
-=======
-    stikSays,
->>>>>>> 7a5df9d82d7169b080b5038119407effcf77f1a2
+    typeOrDieTrying,
+    stikSays
 ];

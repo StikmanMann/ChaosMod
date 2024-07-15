@@ -30,6 +30,7 @@ const typeOrDie = () => {
       const player = eventData.sender;
       if (message == statements[idx]) {
         player.addTag("isSafe");
+        world.sendMessage("ur safe now")
       }
     });
   });
@@ -46,8 +47,8 @@ const typeOrDieTrying: IChaosEvent = {
   onChaosStart: typeOrDie,
   onChaosStop: () => {
     for (const player of GlobalVars.players) {
-      if (!player.hasTag("isSafe")) {
-        player.kill;
+      if (player.hasTag("isSafe") == false) {
+        player.kill();
       }
     }
     for (const player of GlobalVars.players) {
@@ -55,7 +56,7 @@ const typeOrDieTrying: IChaosEvent = {
         player.removeTag("isSafe");
       }
     }
-  },
+},
   onChaosTick: () => {},
 };
 
