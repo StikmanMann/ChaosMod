@@ -16,15 +16,13 @@ let ticksTillCheck = 50;
 let ticksTillCheckMin = 30;
 let ticksTillCheckMax = 100;
 const showPlayerPredicateHud = (player) => {
-    for (const player of GlobalVars.players) {
-        addActionbarMessage({
-            player: player,
-            lifetime: 1,
-            message: stikSaysCheck
-                ? `Stik says ${currentPredicate.predicateInfo}`
-                : currentPredicate.predicateInfo,
-        });
-    }
+    addActionbarMessage({
+        player: player,
+        lifetime: 0,
+        message: stikSaysCheck
+            ? `Stik says ${currentPredicate.predicateInfo} in ${ticksTillCheck} ticks`
+            : `${currentPredicate.predicateInfo} in ${ticksTillCheck} ticks`,
+    });
 };
 const tickFunc = () => {
     for (const player of GlobalVars.players) {
@@ -34,10 +32,17 @@ const tickFunc = () => {
     if (ticksTillCheck <= 0) {
         for (const player of GlobalVars.players) {
             if (currentPredicate.predicateFunc(player) == stikSaysCheck) {
-                world.sendMessage(`${player.nameTag} succeded ${currentPredicate.predicateInfo}`);
+                //player.sendMessage(
+                //`@${player.nameTag} succeded ${currentPredicate.predicateInfo}`
+                //);
             }
             else {
-                world.sendMessage(`${player.nameTag} failed ${currentPredicate.predicateInfo}`);
+                if (stikSaysCheck) {
+                    world.sendMessage(`@${player.nameTag} failed ${currentPredicate.predicateInfo}`);
+                }
+                else {
+                    world.sendMessage(`@${player.nameTag} I didnt say §aStik Says §r${currentPredicate.predicateInfo}`);
+                }
                 player.kill();
             }
         }
