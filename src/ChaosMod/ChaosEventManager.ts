@@ -4,6 +4,10 @@ import {
   World,
   world,
 } from "@minecraft/server";
+
+//Imports for Chaos
+import "./ChaosEventAdmin";
+
 import { LinkedList } from "dataTypes/linkedList";
 import { TickFunctions } from "staticScripts/tickFunctions";
 import { IChaosEvent } from "./IChaosEvent";
@@ -41,7 +45,7 @@ function deepCopy(obj: any) {
   return objCopy;
 }
 
-class ChaosEventManager {
+export class ChaosEventManager {
   static currentEvents: LinkedList<IChaosEvent> = new LinkedList<IChaosEvent>();
 
   static queuedEvent: IChaosEvent =

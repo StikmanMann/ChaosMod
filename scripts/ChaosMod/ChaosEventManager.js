@@ -4,6 +4,8 @@ var __setFunctionName = (this && this.__setFunctionName) || function (f, name, p
 };
 var _a, _b;
 import { DisplaySlotId, world, } from "@minecraft/server";
+//Imports for Chaos
+import "./ChaosEventAdmin";
 import { LinkedList } from "dataTypes/linkedList";
 import { TickFunctions } from "staticScripts/tickFunctions";
 import { ChaosEventSettings } from "./ChaosEventSettings";
@@ -35,7 +37,7 @@ function deepCopy(obj) {
     });
     return objCopy;
 }
-class ChaosEventManager {
+export class ChaosEventManager {
     static addEvent(event) {
         _a.currentEvents.append(event);
         event.onChaosStart();
