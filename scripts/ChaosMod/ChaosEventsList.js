@@ -1,3 +1,4 @@
+import allEffects from "./Events/allEffects";
 import blocksGoBoom from "./Events/BlocksGoBoom";
 import opeThereGoesGravity from "./Events/OpeThereGoesGravity";
 import randomEffect from "./Events/RandomEffect";
@@ -7,4 +8,5 @@ export const chaosEventsList = [
     opeThereGoesGravity,
     TNTRun,
     randomEffect,
+    allEffects
 ];

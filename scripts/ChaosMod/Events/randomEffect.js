@@ -1,13 +1,10 @@
-import { world } from "@minecraft/server";
 import { GlobalVars } from "globalVars";
 const givePlayerRandomEffect = () => {
-    const effects = ["levitation", "poison", "wither", "instant_healing", "regeneration", "speed", "jump_boost", "blindness", "darkness", "haste", "hunger", "saturation", "infested", "mining_fatigue", "nausea", "oozing", "weakness"];
-    const idx = Math.floor(Math.random() * (16 - 0) + 0);
-    const currEffect = effects[idx];
+    const effects = ["levitation", "poison", "wither", "instant_health", "regeneration", "speed", "jump_boost", "blindness", "darkness", "haste", "hunger", "saturation", "infested", "mining_fatigue", "nausea", "oozing", "weakness"];
+    const currEffect = effects[Math.floor(Math.random() * (16 - 0) + 0)];
     for (const player of GlobalVars.players) {
-        world.sendMessage(String(currEffect));
-        world.sendMessage(String(idx));
-        player.addEffect(String(currEffect), 100, { showParticles: false, amplifier: 2 });
+        //world.sendMessage("Everyone now has "+String(currEffect)+"!")
+        player.addEffect(String(currEffect), 600, { showParticles: false, amplifier: 2 });
     }
 };
 const randomEffect = {
