@@ -19,7 +19,7 @@ const randomEffect: IChaosEvent = {
   
     chaosEventUniqueId: "-1",
   
-    chaosEventTime: 100,
+    chaosEventTime: 600,
   
     onChaosStart: givePlayerRandomEffect,
     onChaosStop: () => {},
