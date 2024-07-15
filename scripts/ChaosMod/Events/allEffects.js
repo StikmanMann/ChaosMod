@@ -12,7 +12,7 @@ const allEffects = {
     chaosEventId: "allEffects",
     chaosEventDisplayName: "How did we get here?",
     chaosEventUniqueId: "-1",
-    chaosEventTime: 100,
+    chaosEventTime: 200,
     onChaosStart: givePlayerAllEffects,
     onChaosStop: () => { },
     onChaosTick: () => { },

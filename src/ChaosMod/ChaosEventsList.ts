@@ -3,6 +3,7 @@ import blocksGoBoom from "./Events/BlocksGoBoom";
 import opeThereGoesGravity from "./Events/OpeThereGoesGravity";
 import randomEffect from "./Events/RandomEffect";
 import { TNTRun } from "./Events/TNTRun";
+import typeOrDieTrying from "./Events/typeOrDie";
 import { IChaosEvent } from "./IChaosEvent";
 
 export const chaosEventsList: IChaosEvent[] = [
@@ -10,5 +11,6 @@ export const chaosEventsList: IChaosEvent[] = [
   opeThereGoesGravity,
   TNTRun,
   randomEffect,
-  allEffects
+  allEffects,
+  typeOrDieTrying
 ];
