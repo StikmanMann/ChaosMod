@@ -11,7 +11,7 @@ const randomEffect = {
     chaosEventId: "randomEffect",
     chaosEventDisplayName: "Random Effect",
     chaosEventUniqueId: "-1",
-    chaosEventTime: 600,
+    chaosEventTime: 100,
     onChaosStart: givePlayerRandomEffect,
     onChaosStop: () => { },
     onChaosTick: () => { },
