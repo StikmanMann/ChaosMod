@@ -2,21 +2,50 @@ import { Player, world } from "@minecraft/server";
 import { IChaosEvent } from "ChaosMod/IChaosEvent";
 import { GlobalVars } from "globalVars";
 import { addActionbarMessage } from "hud";
+import { VectorFunctions } from "staticScripts/vectorFunctions";
 import { workerData } from "worker_threads";
 
 interface IStikSays {
   predicateInfo: string;
   predicateFunc: (player: Player) => boolean;
+  minimumTicks: number;
+  maximumTicks: number;
 }
 
 const predicateJump = (player: Player): boolean => {
   return player.isJumping;
 };
 
+const predicateInWater = (player: Player): boolean => {
+  return player.isInWater;
+};
+
+const predicateTouchGrass = (player: Player): boolean => {
+  return (
+    player.dimension.getBlock(
+      VectorFunctions.addVector(player.location, { x: 0, y: -1, z: 0 })
+    ).typeId == "minecraft:grass"
+  );
+};
+
 const predicateList: IStikSays[] = [
   {
     predicateInfo: "Keep jumping!",
     predicateFunc: predicateJump,
+    minimumTicks: 50,
+    maximumTicks: 100,
+  },
+  {
+    predicateInfo: "Get in water!",
+    predicateFunc: predicateInWater,
+    minimumTicks: 100,
+    maximumTicks: 150,
+  },
+  {
+    predicateInfo: "Touch grass!",
+    predicateFunc: predicateTouchGrass,
+    minimumTicks: 100,
+    maximumTicks: 150,
   },
 ];
 
@@ -24,9 +53,7 @@ let stikSaysCheck: boolean = true;
 let currentPredicate: IStikSays =
   predicateList[Math.floor(Math.random() * predicateList.length)];
 
-let ticksTillCheck = 50;
-let ticksTillCheckMin = 30;
-let ticksTillCheckMax = 100;
+let ticksTillCheck = 150;
 
 const showPlayerPredicateHud = (player: Player) => {
   addActionbarMessage({
@@ -64,11 +91,13 @@ const tickFunc = () => {
       }
     }
 
-    ticksTillCheck =
-      Math.floor(Math.random() * (ticksTillCheckMax - ticksTillCheckMin)) +
-      ticksTillCheckMin;
     currentPredicate =
       predicateList[Math.floor(Math.random() * predicateList.length)];
+    ticksTillCheck = Math.floor(
+      Math.random() *
+        (currentPredicate.maximumTicks - currentPredicate.minimumTicks) +
+        currentPredicate.minimumTicks
+    );
     stikSaysCheck = Math.random() > 0.5 ? true : false;
   }
 };
@@ -79,7 +108,7 @@ export const stikSays: IChaosEvent = {
   chaosEventUniqueId: "-1",
   chaosEventTime: 500,
   onChaosStart: () => {
-    ticksTillCheck = 50;
+    ticksTillCheck = 150;
     stikSaysCheck = Math.random() > 0.5 ? true : false;
   },
   onChaosStop: () => {},

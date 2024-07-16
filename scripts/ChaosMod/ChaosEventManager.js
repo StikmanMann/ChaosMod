@@ -53,7 +53,7 @@ export class ChaosEventManager {
 _a = ChaosEventManager;
 ChaosEventManager.currentEvents = new LinkedList();
 ChaosEventManager.queuedEvent = chaosEventsList[Math.floor(Math.random() * chaosEventsList.length)];
-ChaosEventManager.ticksTillNextEvent = 100;
+ChaosEventManager.ticksTillNextEvent = 200;
 ChaosEventManager.init = () => {
     let objective = world.scoreboard.getObjective("chaosEvents");
     if (!objective) {

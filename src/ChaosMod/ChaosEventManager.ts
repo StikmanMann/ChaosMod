@@ -51,7 +51,7 @@ export class ChaosEventManager {
   static queuedEvent: IChaosEvent =
     chaosEventsList[Math.floor(Math.random() * chaosEventsList.length)];
 
-  static ticksTillNextEvent = 100;
+  static ticksTillNextEvent = 200;
 
   static init = () => {
     let objective = world.scoreboard.getObjective("chaosEvents");

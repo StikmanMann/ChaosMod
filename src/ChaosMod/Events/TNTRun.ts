@@ -1,9 +1,12 @@
-import { BlockPermutation } from "@minecraft/server";
+import { BlockPermutation, system } from "@minecraft/server";
 import { IChaosEvent } from "ChaosMod/IChaosEvent";
 import { GlobalVars } from "globalVars";
 import { VectorFunctions } from "staticScripts/vectorFunctions";
 
 const placeTNT = () => {
+  if (system.currentTick % 2 != 0) {
+    return;
+  }
   for (const player of GlobalVars.players) {
     player.dimension.setBlockPermutation(
       VectorFunctions.addVector(player.location, { x: 0, y: 0, z: 0 }),
@@ -24,7 +27,7 @@ export const TNTRun: IChaosEvent = {
   chaosEventId: "tNTRun",
   chaosEventDisplayName: "TNT Run",
   chaosEventUniqueId: "-1",
-  chaosEventTime: 600,
+  chaosEventTime: 300,
   onChaosStart: () => {},
   onChaosStop: () => {},
   onChaosTick: TNTTick,
