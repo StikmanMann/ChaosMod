@@ -22,6 +22,13 @@ const statements = [
   "Pneumonoultramicroscopicsilicovolcanoconiosis",
   "Fair Game",
   "I love Chaos Minecraft!! :)",
+  "I am the real Slim Shady",
+  "I am not a robot",
+  "9 + 10 = 21",
+  "The mod creators are awsome!",
+  "Stik should get a pay raise",
+  "Can i have admin?",
+  "Sry guys, I have no idea how to type",
 ];
 
 const succesMessages = [
