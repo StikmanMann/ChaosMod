@@ -30,7 +30,7 @@ const typeOrDie = () => {
       const player = eventData.sender;
       if (message == statements[idx]) {
         player.addTag("isSafe");
-        world.sendMessage("ur safe now")
+        player.sendMessage("ur safe now")
       }
     });
   });
