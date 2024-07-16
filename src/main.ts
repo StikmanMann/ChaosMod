@@ -35,6 +35,9 @@ import "./MapParser/loadMap"
 //ChaosManager
 import "ChaosMod/ChaosEventManager";
 
+//Better Chat
+import "betterChat";
+
 import { Logger } from "staticScripts/Logger";
 
 Logger.warn("Chaos script running!", "ChaosMod");
