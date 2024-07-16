@@ -23,6 +23,7 @@ const succesMessages = [
 const loseMessages = [
     "doesn't know how to type",
     "suffers from carpal tunnel syndrome",
+    "played twister with his fingers and lost",
 ];
 const chooseRandomStatement = () => {
     return statements[Math.floor(Math.random() * statements.length)];
