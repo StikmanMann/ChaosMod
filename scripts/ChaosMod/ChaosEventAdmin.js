@@ -12,15 +12,10 @@ _a = ChaosEventAdmin;
  * @param query The search options for the event
  * @returns
  */
-ChaosEventAdmin.runEventMenu = (event, query) => {
+ChaosEventAdmin.runEventMenu = (event, events = chaosEventsList) => {
     if (!event.sender.isOp) {
         return;
     }
-    let events = query
-        ? chaosEventsList.filter((event) => event.chaosEventDisplayName
-            .toLowerCase()
-            .includes(query.toLowerCase()))
-        : chaosEventsList;
     const form = new ActionFormData();
     form.title("Chaos Event Admin");
     form.body("What would you like to do?");
@@ -40,7 +35,7 @@ ChaosEventAdmin.runEventMenu = (event, query) => {
                 if (res.canceled) {
                     return;
                 }
-                _a.runEventMenu(event, res.formValues[0]);
+                _a.runEventMenu(event, _a.filterEvents(res.formValues[0]));
             });
             return;
         }
@@ -48,10 +43,38 @@ ChaosEventAdmin.runEventMenu = (event, query) => {
         ChaosEventManager.chooseNextEvent(selectedEvent);
     });
 };
+ChaosEventAdmin.filterEvents = (query) => {
+    return chaosEventsList.filter((event) => event.chaosEventDisplayName
+        .toLowerCase()
+        .includes(query.toLowerCase()) ||
+        event.chaosEventId.toLowerCase().includes(query.toLowerCase()));
+};
 addCommand({
     commandName: "chaos",
     chatFunction: (event) => {
-        ChaosEventAdmin.runEventMenu(event);
+        const splitMessage = event.message.split(" ");
+        switch (splitMessage.length) {
+            case 1:
+                ChaosEventAdmin.runEventMenu(event);
+                break;
+            case 2:
+                const events = ChaosEventAdmin.filterEvents(splitMessage[1]);
+                switch (events.length) {
+                    case 0:
+                        event.sender.sendMessage("No events found");
+                        break;
+                    case 1:
+                        ChaosEventManager.chooseNextEvent(events[0]);
+                        break;
+                    default:
+                        ChaosEventAdmin.runEventMenu(event, events);
+                        break;
+                }
+                break;
+            default:
+                event.sender.sendMessage("Too many arguments");
+                break;
+        }
     },
     directory: "ChaosMod",
     commandPrefix: "!!",
