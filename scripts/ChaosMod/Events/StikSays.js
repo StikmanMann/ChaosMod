@@ -9,7 +9,7 @@ const predicateInWater = (player) => {
     return player.isInWater;
 };
 const predicateTouchGrass = (player) => {
-    return (player.dimension.getBlock(VectorFunctions.addVector(player.location, { x: 0, y: -1, z: 0 })).typeId == "minecraft:grass");
+    return (player.dimension.getBlock(VectorFunctions.addVector(player.location, { x: 0, y: -1, z: 0 })).typeId == "minecraft:grass_block");
 };
 const predicateList = [
     {

@@ -2,9 +2,9 @@ export { VectorFunctions };
 class VectorFunctions {
     /**
      *
-     * @param {import("@minecraft/server").Vector3} a
-     * @param {import("@minecraft/server").Vector3} b
-     * @returns {import("@minecraft/server").Vector3}
+     * @param a
+     * @param b
+     * @returns a NEW vector3
      */
     static addVector(a, b) {
         return { x: a.x + b.x, y: a.y + b.y, z: a.z + b.z };
@@ -19,11 +19,11 @@ class VectorFunctions {
         return { x: a.x - b.x, y: a.y - b.y, z: a.z - b.z };
     }
     /*
-    * Multiply a vector by a scalar.
-    * @param {import("@minecraft/server").Vector3} vector - The vector to multiply.
-    * @param {number} scalar - The scalar value to multiply the vector by.
-    * @returns {import("@minecraft/server").Vector3} - The result of the vector multiplication.
-    */
+     * Multiply a vector by a scalar.
+     * @param {import("@minecraft/server").Vector3} vector - The vector to multiply.
+     * @param {number} scalar - The scalar value to multiply the vector by.
+     * @returns {import("@minecraft/server").Vector3} - The result of the vector multiplication.
+     */
     static multiplyVector(vector, scalar) {
         return {
             x: vector.x * scalar,
@@ -63,10 +63,10 @@ class VectorFunctions {
      * @returns {import("@minecraft/server").Vector3} - The forward vector.
      */
     /**
-   * Normalize a 3D vector.
-   * @param {import("@minecraft/server").Vector3} vector - The vector to normalize.
-   * @returns {import("@minecraft/server").Vector3} - The normalized vector.
-   */
+     * Normalize a 3D vector.
+     * @param {import("@minecraft/server").Vector3} vector - The vector to normalize.
+     * @returns {import("@minecraft/server").Vector3} - The normalized vector.
+     */
     static normalizeVector(vector) {
         const length = this.vectorLength(vector);
         // Avoid division by zero
@@ -87,13 +87,13 @@ class VectorFunctions {
         return vector;
     }
     /**
-   * Rotate a 3D vector around the origin.
-   * @param {import("@minecraft/server").Vector3} vector - The vector to rotate.
-   * @param {number} angleX - The rotation angle around the X-axis (in deg).
-   * @param {number} angleY - The rotation angle around the Y-axis (in deg).
-   * @param {number} angleZ - The rotation angle around the Z-axis (in deg).
-   * @returns {import("@minecraft/server").Vector3} - The rotated vector.
-   */
+     * Rotate a 3D vector around the origin.
+     * @param {import("@minecraft/server").Vector3} vector - The vector to rotate.
+     * @param {number} angleX - The rotation angle around the X-axis (in deg).
+     * @param {number} angleY - The rotation angle around the Y-axis (in deg).
+     * @param {number} angleZ - The rotation angle around the Z-axis (in deg).
+     * @returns {import("@minecraft/server").Vector3} - The rotated vector.
+     */
     static rotateVector(vector, angleXdeg, angleYdeg, angleZdeg) {
         // Convert angles to radians
         const angleX = angleXdeg * (Math.PI / 180);
@@ -124,7 +124,6 @@ class VectorFunctions {
             z: rotatedZ,
         };
     }
-    ;
     /**
      * Rotate a 3D vector around the Y-axis.
      * @param {Object} vector - The input vector {x, y, z}.
@@ -148,11 +147,11 @@ class VectorFunctions {
         };
     }
     /**
- * Rotate a 3D vector around the X-axis (pitch).
- * @param {Object} vector - The input vector {x, y, z}.
- * @param {number} angleXdeg - The rotation angle in degrees.
- * @returns {Object} - The rotated vector {x, y, z}.
- */
+     * Rotate a 3D vector around the X-axis (pitch).
+     * @param {Object} vector - The input vector {x, y, z}.
+     * @param {number} angleXdeg - The rotation angle in degrees.
+     * @returns {Object} - The rotated vector {x, y, z}.
+     */
     static rotateVectorX(vector, angleXdeg) {
         const angleX = angleXdeg * (Math.PI / 180);
         const cosX = Math.cos(angleX);
@@ -185,7 +184,7 @@ class VectorFunctions {
         return adjustedAngle;
     }
     static stringToVector(inputString) {
-        const [xStr, yStr, zStr] = inputString.split(' ');
+        const [xStr, yStr, zStr] = inputString.split(" ");
         // Convert string values to numbers
         const x = parseFloat(xStr);
         const y = parseFloat(yStr);
@@ -197,4 +196,6 @@ class VectorFunctions {
         return { x: x, y: y, z: z };
     }
 }
-String.prototype.toVector3 = function () { return VectorFunctions.stringToVector(this); };
+String.prototype.toVector3 = function () {
+    return VectorFunctions.stringToVector(this);
+};

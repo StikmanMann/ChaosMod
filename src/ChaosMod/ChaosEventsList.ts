@@ -5,6 +5,7 @@ import randomEffect from "./Events/RandomEffect";
 import { stikSays } from "./Events/StikSays";
 import { TNTRun } from "./Events/TNTRun";
 import typeOrDieTrying from "./Events/typeOrDie";
+import { zombieHorde } from "./Events/ZombieHorde";
 import { IChaosEvent } from "./IChaosEvent";
 
 export const chaosEventsList: IChaosEvent[] = [
@@ -14,5 +15,6 @@ export const chaosEventsList: IChaosEvent[] = [
   randomEffect,
   allEffects,
   typeOrDieTrying,
-  stikSays
+  stikSays,
+  zombieHorde,
 ];

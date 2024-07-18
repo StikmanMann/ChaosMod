@@ -5,6 +5,7 @@ import randomEffect from "./Events/RandomEffect";
 import { stikSays } from "./Events/StikSays";
 import { TNTRun } from "./Events/TNTRun";
 import typeOrDieTrying from "./Events/typeOrDie";
+import { zombieHorde } from "./Events/ZombieHorde";
 export const chaosEventsList = [
     blocksGoBoom,
     opeThereGoesGravity,
@@ -12,5 +13,6 @@ export const chaosEventsList = [
     randomEffect,
     allEffects,
     typeOrDieTrying,
-    stikSays
+    stikSays,
+    zombieHorde,
 ];
