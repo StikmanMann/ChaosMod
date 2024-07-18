@@ -57,13 +57,15 @@ class ChaosEventAdmin {
   };
 
   static filterEvents = (query: string): IChaosEvent[] => {
-    return chaosEventsList.filter(
-      (event) =>
+    query = query.trim();
+    return chaosEventsList.filter((event) => {
+      return (
         event.chaosEventDisplayName
           .toLowerCase()
           .includes(query.toLowerCase()) ||
         event.chaosEventId.toLowerCase().includes(query.toLowerCase())
-    );
+      );
+    });
   };
 }
 
@@ -71,7 +73,7 @@ addCommand({
   commandName: "chaos",
 
   chatFunction: (event) => {
-    const splitMessage = event.message.split(" ");
+    const splitMessage = event.message.split(/!!chaos/);
     switch (splitMessage.length) {
       case 1:
         ChaosEventAdmin.runEventMenu(event);
@@ -91,7 +93,9 @@ addCommand({
         }
         break;
       default:
-        event.sender.sendMessage("Too many arguments");
+        event.sender.sendMessage(
+          "Too many arguments, somehow? Ig you wrote !!chaos twice?"
+        );
         break;
     }
   },
