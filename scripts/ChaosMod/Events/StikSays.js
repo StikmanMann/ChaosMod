@@ -1,4 +1,4 @@
-import { world } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
 import { GlobalVars } from "globalVars";
 import { addActionbarMessage } from "hud";
 import { VectorFunctions } from "staticScripts/vectorFunctions";
@@ -37,13 +37,16 @@ let ticksTillCheck = 150;
 const showPlayerPredicateHud = (player) => {
     addActionbarMessage({
         player: player,
-        lifetime: 0,
+        lifetime: 1,
         message: stikSaysCheck
             ? `Stik says ${currentPredicate.predicateInfo} in ${ticksTillCheck} ticks`
             : `${currentPredicate.predicateInfo} in ${ticksTillCheck} ticks`,
     });
 };
 const tickFunc = () => {
+    if (system.currentTick % 1 != 0) {
+        return;
+    }
     for (const player of GlobalVars.players) {
         showPlayerPredicateHud(player);
     }

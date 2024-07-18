@@ -1,4 +1,5 @@
 import { EntityDamageCause, world } from "@minecraft/server";
+import { IChaosEvent } from "ChaosMod/IChaosEvent";
 import { GlobalVars } from "globalVars";
 import { workerData } from "worker_threads";
 
@@ -13,7 +14,9 @@ const rollForHealEnd = () => {
 
     switch (roll) {
       case 1:
-        world.sendMessage(`${player.nameTag} was out of luck on this one :(`);
+        world.sendMessage(
+          `@${player.nameTag} was out of luck on this one :(, they rolled a 1`
+        );
         player.kill();
         break;
       case 2:
@@ -49,12 +52,31 @@ const rollForHealEnd = () => {
         playerHealthCompnent.setCurrentValue(
           roll + playerHealthCompnent.currentValue
         );
-        player.addEffect("regeneration", roll * 50);
+        player.addEffect("regeneration", roll * 50, { amplifier: 2 });
         player.sendMessage(
           `You rolled a ${roll}, so were healing you for that and some regen on top!`
         );
         break;
       case 20:
+        playerHealthCompnent.setCurrentValue(
+          roll + playerHealthCompnent.currentValue
+        );
+        player.addEffect("instant_health", roll * 50);
+        player.addEffect("regeneration", roll * 50, { amplifier: 5 });
+
+        world.sendMessage(
+          `@${player.nameTag} rolled a nat 20! They won't be dying anytime soon!`
+        );
     }
   }
+};
+
+export const rollForHeal: IChaosEvent = {
+  chaosEventId: "rollForHeal",
+  chaosEventDisplayName: "Roll For Heal",
+  chaosEventUniqueId: "-1",
+  chaosEventTime: 50,
+  onChaosStart: rollForHealstart,
+  onChaosStop: rollForHealEnd,
+  onChaosTick: () => {},
 };

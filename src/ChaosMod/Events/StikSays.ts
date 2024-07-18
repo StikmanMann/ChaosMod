@@ -1,4 +1,4 @@
-import { Player, world } from "@minecraft/server";
+import { Player, system, world } from "@minecraft/server";
 import { IChaosEvent } from "ChaosMod/IChaosEvent";
 import { GlobalVars } from "globalVars";
 import { addActionbarMessage } from "hud";
@@ -58,7 +58,7 @@ let ticksTillCheck = 150;
 const showPlayerPredicateHud = (player: Player) => {
   addActionbarMessage({
     player: player,
-    lifetime: 0,
+    lifetime: 1,
     message: stikSaysCheck
       ? `Stik says ${currentPredicate.predicateInfo} in ${ticksTillCheck} ticks`
       : `${currentPredicate.predicateInfo} in ${ticksTillCheck} ticks`,
@@ -66,6 +66,9 @@ const showPlayerPredicateHud = (player: Player) => {
 };
 
 const tickFunc = () => {
+  if (system.currentTick % 1 != 0) {
+    return;
+  }
   for (const player of GlobalVars.players) {
     showPlayerPredicateHud(player);
   }
