@@ -103,6 +103,7 @@ export class ChaosEventManager {
   };
   static addEvent(event: IChaosEvent) {
     ChaosEventManager.currentEvents.append(event);
+    Logger.warn(`Added Event: ${event.chaosEventId}`, "Chaos Event Manager");
     event.onChaosStart();
   }
 

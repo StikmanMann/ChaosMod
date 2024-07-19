@@ -40,6 +40,7 @@ function deepCopy(obj) {
 export class ChaosEventManager {
     static addEvent(event) {
         _a.currentEvents.append(event);
+        Logger.warn(`Added Event: ${event.chaosEventId}`, "Chaos Event Manager");
         event.onChaosStart();
     }
     static removeEvent(event) {
