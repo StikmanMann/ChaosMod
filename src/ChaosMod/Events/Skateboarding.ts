@@ -3,6 +3,12 @@ import { GlobalVars } from "globalVars";
 import { JumpFunctions } from "playerMovement/jumpFunctions";
 import { Logger } from "staticScripts/Logger";
 
+const skateboardingStart = () => {
+  for (const player of GlobalVars.players) {
+    player.addEffect("jump_boost", 500, { amplifier: 10 });
+  }
+};
+
 const skateboardingTick = () => {
   for (const player of GlobalVars.players) {
     //Logger.warn(`${player.getRotation().y}`, "Skateboarding");
@@ -21,7 +27,7 @@ export const skatebording: IChaosEvent = {
   chaosEventDisplayName: "Skateboarding",
   chaosEventUniqueId: "-1",
   chaosEventTime: 500,
-  onChaosStart: () => {},
+  onChaosStart: skateboardingStart,
   onChaosStop: () => {},
   onChaosTick: skateboardingTick,
 };

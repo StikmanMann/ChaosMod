@@ -1,5 +1,6 @@
 import allEffects from "./Events/allEffects";
 import blocksGoBoom from "./Events/BlocksGoBoom";
+import { herobrineStalker } from "./Events/HerobrineStalker";
 import opeThereGoesGravity from "./Events/OpeThereGoesGravity";
 import randomEffect from "./Events/RandomEffect";
 import { rollForHeal } from "./Events/RollForHeal";
@@ -19,4 +20,5 @@ export const chaosEventsList = [
     zombieHorde,
     rollForHeal,
     skatebording,
+    herobrineStalker,
 ];

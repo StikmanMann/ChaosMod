@@ -1,4 +1,9 @@
 import { GlobalVars } from "globalVars";
+const skateboardingStart = () => {
+    for (const player of GlobalVars.players) {
+        player.addEffect("jump_boost", 500, { amplifier: 10 });
+    }
+};
 const skateboardingTick = () => {
     for (const player of GlobalVars.players) {
         //Logger.warn(`${player.getRotation().y}`, "Skateboarding");
@@ -11,7 +16,7 @@ export const skatebording = {
     chaosEventDisplayName: "Skateboarding",
     chaosEventUniqueId: "-1",
     chaosEventTime: 500,
-    onChaosStart: () => { },
+    onChaosStart: skateboardingStart,
     onChaosStop: () => { },
     onChaosTick: skateboardingTick,
 };
