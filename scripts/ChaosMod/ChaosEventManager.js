@@ -69,10 +69,12 @@ ChaosEventManager.tick = () => {
 };
 ChaosEventManager.eventTick = () => {
     _a.currentEvents.forEach((event) => {
-        event.onChaosTick();
         event.chaosEventTime--;
         if (event.chaosEventTime <= 0) {
             _a.removeEvent(event);
+        }
+        else {
+            event.onChaosTick();
         }
     });
 };

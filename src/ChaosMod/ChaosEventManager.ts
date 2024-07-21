@@ -69,10 +69,11 @@ export class ChaosEventManager {
 
   static eventTick = () => {
     this.currentEvents.forEach((event) => {
-      event.onChaosTick();
       event.chaosEventTime--;
       if (event.chaosEventTime <= 0) {
         this.removeEvent(event);
+      } else {
+        event.onChaosTick();
       }
     });
   };

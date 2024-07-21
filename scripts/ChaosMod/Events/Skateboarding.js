@@ -8,7 +8,7 @@ const skateboardingTick = () => {
     for (const player of GlobalVars.players) {
         //Logger.warn(`${player.getRotation().y}`, "Skateboarding");
         const playerRotation = player.getRotation();
-        player.applyKnockback(Math.sin(playerRotation.y * (Math.PI / 180) * -1), Math.cos(playerRotation.y * (Math.PI / 180) * -1), 1, -0.25);
+        player.applyKnockback(Math.sin(playerRotation.y * (Math.PI / 180) * -1), Math.cos(playerRotation.y * (Math.PI / 180) * -1), 2, -0.25);
     }
 };
 export const skatebording = {

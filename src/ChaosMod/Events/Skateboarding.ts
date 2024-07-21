@@ -16,7 +16,7 @@ const skateboardingTick = () => {
     player.applyKnockback(
       Math.sin(playerRotation.y * (Math.PI / 180) * -1),
       Math.cos(playerRotation.y * (Math.PI / 180) * -1),
-      1,
+      2,
       -0.25
     );
   }

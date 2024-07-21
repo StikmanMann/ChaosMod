@@ -1,9 +1,16 @@
-import { EasingType, Player, system, Vector3, world } from "@minecraft/server";
+import {
+  EasingType,
+  ItemStack,
+  Player,
+  system,
+  Vector3,
+  world,
+} from "@minecraft/server";
 import { IChaosEvent } from "ChaosMod/IChaosEvent";
 import { GlobalVars } from "globalVars";
+import { DrawFunctions } from "staticScripts/drawFunctions";
 import { Logger } from "staticScripts/Logger";
 import { VectorFunctions } from "staticScripts/vectorFunctions";
-import { workerData } from "worker_threads";
 
 const randomDistances: Vector3[] = [
   { x: 30, y: 0, z: 0 },
@@ -12,36 +19,70 @@ const randomDistances: Vector3[] = [
   { x: 0, y: 0, z: -30 },
 ];
 
+const lookCancelTicks = 50;
 let randomStartIndex = Math.floor(Math.random() * randomDistances.length);
+let lastSeenTick: { [playerId: string]: number } = {};
+let herobrinePositions: { [playerId: string]: Vector3 } = {};
 
-const calculateValidHerobrinePosition = (player: Player): Vector3 | null => {
-  const playerPos = player.location;
+const range = 6;
 
-  for (let i = 0; i < randomDistances.length; i++) {
-    const randomDistance = randomDistances[i];
+const nearHerobrine = (player: Player, herobrinePos: Vector3): boolean => {
+  return (
+    VectorFunctions.vectorLength(
+      VectorFunctions.subtractVector(herobrinePos, player.location)
+    ) < range
+  );
+};
 
-    for (let yOffset = 0; yOffset <= 3; yOffset++) {
-      randomDistance.y = yOffset;
-      const herobrinePos = VectorFunctions.addVector(playerPos, randomDistance);
-      player.dimension.spawnParticle("minecraft:totem_manual", herobrinePos);
-
-      if (player.dimension.getBlock(herobrinePos).typeId == "minecraft:air") {
-        return VectorFunctions.addVector(herobrinePos, { x: 0, y: 2, z: 0 });
+const findHerobrinePosition = (player: Player): Vector3 | null => {
+  for (const player of GlobalVars.players) {
+    const rot = player.getRotation();
+    const forwardVector = VectorFunctions.getForwardVectorFromRotationXY(
+      0,
+      rot.y
+    );
+    for (let distance = 20; distance <= 50; distance++) {
+      const behindVector = VectorFunctions.multiplyVector(
+        forwardVector,
+        -distance
+      );
+      for (let yOffset = 0; yOffset <= 10; yOffset++) {
+        let possiblePos = VectorFunctions.addVector(
+          VectorFunctions.addVector(player.location, behindVector),
+          { x: 0, y: yOffset, z: 0 }
+        );
+        const block = player.dimension.getBlock(possiblePos);
+        if (
+          block.typeId == "minecraft:air" &&
+          block.below(1).typeId != "minecraft:air"
+        ) {
+          return VectorFunctions.addVector(possiblePos, {
+            x: 0,
+            y: 2,
+            z: 0,
+          });
+        }
+        DrawFunctions.drawLine(10, player.location, possiblePos);
       }
     }
   }
-  return null;
+  return VectorFunctions.addVector(player.location, { x: 0, y: 50, z: 0 });
 };
 
 const herobrineStart = () => {
   world.sendMessage(`§eHerobrine has joined the world`);
 
   for (const player of GlobalVars.players) {
-    const herobrinePos = calculateValidHerobrinePosition(player);
+    lastSeenTick[player.id] = 0;
+    const herobrinePos = findHerobrinePosition(player);
     if (herobrinePos == null) {
       continue;
     }
+
+    player.dimension.spawnItem(new ItemStack("totem_of_undying"), herobrinePos);
+    herobrinePositions[player.id] = herobrinePos;
     Logger.warn(`Herobrine Position: ${herobrinePos}`);
+    player.addEffect("blindness", 400);
     player.camera.setCamera("minecraft:free", {
       location: herobrinePos,
       facingEntity: player,
@@ -50,18 +91,24 @@ const herobrineStart = () => {
 };
 
 const herobrineTick = () => {
-  if (system.currentTick % 2 != 0) {
-    return;
-  }
-  if (system.currentTick % 50 == 0) {
-    randomStartIndex = Math.floor(Math.random() * randomDistances.length);
-  }
   for (const player of GlobalVars.players) {
-    const herobrinePos = calculateValidHerobrinePosition(player);
-    if (herobrinePos == null) {
+    if (system.currentTick - lastSeenTick[player.id] < lookCancelTicks) {
       continue;
     }
-    Logger.warn(`Herobrine Position: ${herobrinePos}`);
+
+    const herobrinePos = herobrinePositions[player.id];
+    if (!herobrinePos) {
+      player.camera.clear();
+      continue;
+    }
+
+    if (nearHerobrine(player, herobrinePos)) {
+      player.camera.clear();
+      lastSeenTick[player.id] = system.currentTick;
+      continue;
+    }
+
+    //Logger.warn(`Herobrine Position: ${herobrinePos}`);
     player.camera.setCamera("minecraft:free", {
       location: herobrinePos,
       facingEntity: player,
@@ -73,6 +120,7 @@ const herobrineTick = () => {
 const herobrineStop = () => {
   for (const player of GlobalVars.players) {
     player.camera.clear();
+    player.removeEffect("blindness");
   }
   world.sendMessage(`§eHerobrine has left the world`);
 };
