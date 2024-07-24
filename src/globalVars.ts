@@ -1,4 +1,11 @@
-import { world, Player, Dimension, Vector3, Entity } from "@minecraft/server";
+import {
+  world,
+  Player,
+  Dimension,
+  Vector3,
+  Entity,
+  EntityQueryOptions,
+} from "@minecraft/server";
 export { GlobalVars };
 class GlobalVars {
   /**
@@ -15,11 +22,16 @@ class GlobalVars {
 
   static theEnd = world.getDimension("the_end");
 
-  static getAllEntities(): Entity[] {
-    const entities = GlobalVars.overworld
-      .getEntities()
-      .concat(GlobalVars.nether.getEntities())
-      .concat(GlobalVars.theEnd.getEntities());
+  static getAllEntities(options?: EntityQueryOptions): Entity[] {
+    const entities = options
+      ? GlobalVars.overworld
+          .getEntities(options)
+          .concat(GlobalVars.nether.getEntities(options))
+          .concat(GlobalVars.theEnd.getEntities(options))
+      : GlobalVars.overworld
+          .getEntities()
+          .concat(GlobalVars.nether.getEntities())
+          .concat(GlobalVars.theEnd.getEntities());
     return entities;
   }
 

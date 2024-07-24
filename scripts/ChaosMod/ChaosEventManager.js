@@ -81,8 +81,11 @@ ChaosEventManager.eventTick = () => {
 ChaosEventManager.eventTimer = () => {
     _a.ticksTillNextEvent--;
     if (_a.ticksTillNextEvent <= 0) {
+        _a.ticksTillNextEvent =
+            _a.queuedEvent.timeTillNextEventOverride *
+                ChaosEventSettings.tickDelayMultiplier ??
+                ChaosEventSettings.tickDelay * ChaosEventSettings.tickDelayMultiplier;
         _a.chooseNextEvent(_a.queuedEvent);
-        _a.ticksTillNextEvent = ChaosEventSettings.tickDelay;
     }
 };
 ChaosEventManager.chooseRandomNextEvent = () => {

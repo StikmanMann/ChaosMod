@@ -55,6 +55,7 @@ export const rollForHeal = {
     chaosEventDisplayName: "Roll For Heal",
     chaosEventUniqueId: "-1",
     chaosEventTime: 50,
+    timeTillNextEventOverride: 100,
     onChaosStart: rollForHealstart,
     onChaosStop: rollForHealEnd,
     onChaosTick: () => { },

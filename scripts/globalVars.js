@@ -1,11 +1,16 @@
-import { world } from "@minecraft/server";
+import { world, } from "@minecraft/server";
 export { GlobalVars };
 class GlobalVars {
-    static getAllEntities() {
-        const entities = GlobalVars.overworld
-            .getEntities()
-            .concat(GlobalVars.nether.getEntities())
-            .concat(GlobalVars.theEnd.getEntities());
+    static getAllEntities(options) {
+        const entities = options
+            ? GlobalVars.overworld
+                .getEntities(options)
+                .concat(GlobalVars.nether.getEntities(options))
+                .concat(GlobalVars.theEnd.getEntities(options))
+            : GlobalVars.overworld
+                .getEntities()
+                .concat(GlobalVars.nether.getEntities())
+                .concat(GlobalVars.theEnd.getEntities());
         return entities;
     }
     static getPlayers() {

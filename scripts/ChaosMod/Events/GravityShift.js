@@ -1,21 +1,42 @@
 import { GlobalVars } from "globalVars";
-let currentGravityModifier = 0;
-const gravityShiftMultiplier = 0.1;
+let currentYGravityModifier = 0;
+let currentXGravityModifier = 0;
+let currentZGravityModifier = 0;
+const gravityShiftVerticalMultiplier = 0.5;
+const gravityShiftHorizontalMultiplier = 1;
 const gravityShiftTick = () => {
-    currentGravityModifier += Math.random() - 0.5;
-    if (currentGravityModifier > 2)
-        currentGravityModifier = 2;
-    if (currentGravityModifier < -2)
-        currentGravityModifier = -2;
-    for (const player of GlobalVars.players) {
-        player.applyKnockback(0, 0, 0, currentGravityModifier * gravityShiftMultiplier);
+    currentYGravityModifier += Math.random() - 0.5;
+    if (currentYGravityModifier > 2)
+        currentYGravityModifier = 2;
+    if (currentYGravityModifier < -2)
+        currentYGravityModifier = -2;
+    currentXGravityModifier += Math.random() - 0.5;
+    if (currentXGravityModifier > 1)
+        currentXGravityModifier = 1;
+    if (currentXGravityModifier < -1)
+        currentXGravityModifier = -1;
+    currentZGravityModifier += Math.random() - 0.5;
+    if (currentZGravityModifier > 1)
+        currentZGravityModifier = 1;
+    if (currentZGravityModifier < -1)
+        currentZGravityModifier = -1;
+    const entities = GlobalVars.getAllEntities({
+        excludeTypes: ["minecraft:xp_orb", "minecraft:item"],
+    });
+    for (const entity of entities) {
+        try {
+            entity.applyKnockback(currentXGravityModifier, currentZGravityModifier, gravityShiftHorizontalMultiplier, currentYGravityModifier * gravityShiftVerticalMultiplier);
+        }
+        catch {
+            //Logger.warn(`Gravity Shift Failed: ${entity.typeId}`);
+        }
     }
 };
 export const gravityShift = {
     chaosEventDisplayName: "Gravity Shift",
     chaosEventId: "gravityShift",
     chaosEventUniqueId: "-1",
-    chaosEventTime: 400,
+    chaosEventTime: 200,
     onChaosStart: () => { },
     onChaosStop: () => { },
     onChaosTick: gravityShiftTick,
