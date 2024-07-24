@@ -7,6 +7,7 @@ import randomEffect from "./Events/RandomEffect";
 import { rollForHeal } from "./Events/RollForHeal";
 import { skatebording } from "./Events/Skateboarding";
 import { stikSays } from "./Events/StikSays";
+import { swapPositions } from "./Events/swapPositions";
 import { TNTRun } from "./Events/TNTRun";
 import typeOrDieTrying from "./Events/typeOrDie";
 import { zombieHorde } from "./Events/ZombieHorde";
@@ -23,4 +24,5 @@ export const chaosEventsList = [
     skatebording,
     herobrineStalker,
     invisibleMobs,
+    swapPositions,
 ];
