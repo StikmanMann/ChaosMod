@@ -1,6 +1,7 @@
 import allEffects from "./Events/allEffects";
 import blocksGoBoom from "./Events/BlocksGoBoom";
 import { herobrineStalker } from "./Events/HerobrineStalker";
+import { invisibleMobs } from "./Events/InvisibleMobs";
 import opeThereGoesGravity from "./Events/OpeThereGoesGravity";
 import randomEffect from "./Events/RandomEffect";
 import { rollForHeal } from "./Events/RollForHeal";
@@ -23,4 +24,5 @@ export const chaosEventsList: IChaosEvent[] = [
   rollForHeal,
   skatebording,
   herobrineStalker,
+  invisibleMobs,
 ];
