@@ -1,5 +1,6 @@
 import allEffects from "./Events/allEffects";
 import blocksGoBoom from "./Events/BlocksGoBoom";
+import { gravityShift } from "./Events/GravityShift";
 import { herobrineStalker } from "./Events/HerobrineStalker";
 import { invisibleMobs } from "./Events/InvisibleMobs";
 import opeThereGoesGravity from "./Events/OpeThereGoesGravity";
@@ -25,4 +26,5 @@ export const chaosEventsList = [
     herobrineStalker,
     invisibleMobs,
     swapPositions,
+    gravityShift,
 ];

@@ -5,8 +5,13 @@ import { Logger } from "staticScripts/Logger";
 
 const gravityStart = () => {
   world.sendMessage("Snap back to reality, ope, there goes gravity!");
-  for (const player of GlobalVars.players) {
-    player.addEffect("levitation", 100, { showParticles: false, amplifier: 3 });
+
+  const entities = GlobalVars.overworld
+    .getEntities()
+    .concat(GlobalVars.nether.getEntities())
+    .concat(GlobalVars.theEnd.getEntities());
+  for (const entity of entities) {
+    entity.addEffect("levitation", 100, { showParticles: false, amplifier: 3 });
   }
 };
 

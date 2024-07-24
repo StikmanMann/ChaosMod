@@ -1,4 +1,4 @@
-import { world, Player, Dimension, Vector3 } from "@minecraft/server";
+import { world, Player, Dimension, Vector3, Entity } from "@minecraft/server";
 export { GlobalVars };
 class GlobalVars {
   /**
@@ -10,6 +10,18 @@ class GlobalVars {
    * @type {Dimension}
    */
   static overworld = world.getDimension("overworld");
+
+  static nether = world.getDimension("nether");
+
+  static theEnd = world.getDimension("the_end");
+
+  static getAllEntities(): Entity[] {
+    const entities = GlobalVars.overworld
+      .getEntities()
+      .concat(GlobalVars.nether.getEntities())
+      .concat(GlobalVars.theEnd.getEntities());
+    return entities;
+  }
 
   static getPlayers() {
     this.players = world.getAllPlayers();
