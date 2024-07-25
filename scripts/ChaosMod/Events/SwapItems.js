@@ -30,6 +30,7 @@ const swapItemStart = async () => {
         return player.getComponent("inventory").container;
     });
     containers = shuffleArray(containers);
+    // += 2 cuz iw you swap a player twice its gets unswapped, atleast that my logic idk if this is actually correct
     for (let i = 0; i < GlobalVars.players.length; i += 2) {
         const player = GlobalVars.players[i];
         const container = player.getComponent("inventory").container;

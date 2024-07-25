@@ -36,17 +36,25 @@ const swapItemBetweenPlayers = async (
 };
 
 const swapItemStart = async () => {
-  let containers = GlobalVars.players.map((player) => {
-    return player.getComponent("inventory").container;
-  });
+  let shuffledPlayers = shuffleArray(GlobalVars.players);
 
-  containers = shuffleArray(containers);
+  let alreadyShuffled: Set<Player> = new Set();
 
-  for (let i = 0; i < GlobalVars.players.length; i += 2) {
+  for (let i = 0; i < GlobalVars.players.length; i++) {
     const player = GlobalVars.players[i];
-    const container = player.getComponent("inventory").container;
+    const otherPlayer = shuffledPlayers[i];
 
-    swapItemBetweenPlayers(containers[Math.floor(i / 2)], container);
+    //Idk if this chceck is correct for double swaps, which leads to not being swapped at all ( swapping twice with 2 other players works tho)
+    if (alreadyShuffled.has(player)) {
+      continue;
+    }
+
+    alreadyShuffled.add(player);
+    alreadyShuffled.add(otherPlayer);
+
+    const container = player.getComponent("inventory").container;
+    const otherContainer = otherPlayer.getComponent("inventory").container;
+    swapItemBetweenPlayers(otherContainer, container);
   }
 };
 
