@@ -74,7 +74,7 @@ const typeOrDieTrying = {
     chaosEventId: "typeOrDie",
     chaosEventDisplayName: "Type the message or die trying",
     chaosEventUniqueId: "-1",
-    chaosEventTime: 200,
+    chaosEventTime: 250,
     onChaosStart: typeOrDieStart,
     onChaosStop: typeOrDieStop,
     onChaosTick: () => { },

@@ -82,10 +82,10 @@ export class ChaosEventManager {
     this.ticksTillNextEvent--;
 
     if (this.ticksTillNextEvent <= 0) {
-      this.ticksTillNextEvent =
-        this.queuedEvent.timeTillNextEventOverride *
-          ChaosEventSettings.tickDelayMultiplier ??
-        ChaosEventSettings.tickDelay * ChaosEventSettings.tickDelayMultiplier;
+      this.ticksTillNextEvent = this.queuedEvent.timeTillNextEventOverride
+        ? this.queuedEvent.timeTillNextEventOverride *
+          ChaosEventSettings.tickDelayMultiplier
+        : ChaosEventSettings.tickDelay * ChaosEventSettings.tickDelayMultiplier;
       this.chooseNextEvent(this.queuedEvent);
     }
   };

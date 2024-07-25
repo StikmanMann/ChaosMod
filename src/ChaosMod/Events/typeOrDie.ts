@@ -98,7 +98,7 @@ const typeOrDieTrying: IChaosEvent = {
 
   chaosEventUniqueId: "-1",
 
-  chaosEventTime: 200,
+  chaosEventTime: 250,
 
   onChaosStart: typeOrDieStart,
   onChaosStop: typeOrDieStop,

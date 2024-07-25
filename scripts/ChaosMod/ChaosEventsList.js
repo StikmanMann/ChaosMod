@@ -8,7 +8,8 @@ import randomEffect from "./Events/RandomEffect";
 import { rollForHeal } from "./Events/RollForHeal";
 import { skatebording } from "./Events/Skateboarding";
 import { stikSays } from "./Events/StikSays";
-import { swapPositions } from "./Events/swapPositions";
+import { swapItems } from "./Events/SwapItems";
+import { swapPositions } from "./Events/SwapPositions";
 import { TNTRun } from "./Events/TNTRun";
 import typeOrDieTrying from "./Events/typeOrDie";
 import { zombieHorde } from "./Events/ZombieHorde";
@@ -27,4 +28,5 @@ export const chaosEventsList = [
     invisibleMobs,
     swapPositions,
     gravityShift,
+    swapItems,
 ];
