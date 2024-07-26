@@ -9,7 +9,7 @@ const rollForHealEnd = () => {
         const playerHealthCompnent = player.getComponent("health");
         switch (roll) {
             case 1:
-                world.sendMessage(`${player.nameTag} was out of luck on this one :(`);
+                world.sendMessage(`@${player.nameTag} was out of luck on this one :(, they rolled a 1`);
                 player.kill();
                 break;
             case 2:
@@ -39,10 +39,24 @@ const rollForHealEnd = () => {
             case 18:
             case 19:
                 playerHealthCompnent.setCurrentValue(roll + playerHealthCompnent.currentValue);
-                player.addEffect("regeneration", roll * 50);
+                player.addEffect("regeneration", roll * 50, { amplifier: 2 });
                 player.sendMessage(`You rolled a ${roll}, so were healing you for that and some regen on top!`);
                 break;
             case 20:
+                playerHealthCompnent.setCurrentValue(roll + playerHealthCompnent.currentValue);
+                player.addEffect("instant_health", roll * 50);
+                player.addEffect("regeneration", roll * 50, { amplifier: 5 });
+                world.sendMessage(`@${player.nameTag} rolled a nat 20! They won't be dying anytime soon!`);
         }
     }
+};
+export const rollForHeal = {
+    chaosEventId: "rollForHeal",
+    chaosEventDisplayName: "Roll For Heal",
+    chaosEventUniqueId: "-1",
+    chaosEventTime: 50,
+    timeTillNextEventOverride: 100,
+    onChaosStart: rollForHealstart,
+    onChaosStop: rollForHealEnd,
+    onChaosTick: () => { },
 };

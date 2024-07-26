@@ -22,6 +22,7 @@ function shuffleArray<T>(array: Array<T>): Array<T> {
 }
 
 function shuffleArrayEnsureChange<T>(array: Array<T>): Array<T> {
+  if(array.length<=1){return array}
   let shuffledArray = [...array];
   let isSame = true;
 

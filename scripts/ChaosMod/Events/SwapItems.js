@@ -16,6 +16,9 @@ function shuffleArray(array) {
     return array;
 }
 function shuffleArrayEnsureChange(array) {
+    if (array.length <= 1) {
+        return array;
+    }
     let shuffledArray = [...array];
     let isSame = true;
     while (isSame) {

@@ -2,7 +2,8 @@ import { system } from "@minecraft/server";
 import { GlobalVars } from "globalVars";
 // Function to shuffle an array using Fisher-Yates algorithm
 function shuffleArray(array) {
-    let currentIndex = array.length, randomIndex;
+    let currentIndex = array.length;
+    let randomIndex;
     // While there remain elements to shuffle
     while (currentIndex !== 0) {
         // Pick a remaining element
