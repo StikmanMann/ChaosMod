@@ -6,6 +6,7 @@ import { invisibleMobs } from "./Events/InvisibleMobs";
 import opeThereGoesGravity from "./Events/OpeThereGoesGravity";
 import randomEffect from "./Events/RandomEffect";
 import { rollForHeal } from "./Events/RollForHeal";
+import { rollForItem } from "./Events/RollForItem";
 import { skatebording } from "./Events/Skateboarding";
 import { stikSays } from "./Events/StikSays";
 import { swapItems } from "./Events/SwapItems";
@@ -23,6 +24,7 @@ export const chaosEventsList = [
     stikSays,
     zombieHorde,
     rollForHeal,
+    rollForItem,
     skatebording,
     herobrineStalker,
     invisibleMobs,
