@@ -3,14 +3,12 @@ import { IChaosEvent } from "ChaosMod/IChaosEvent";
 import { GlobalVars } from "globalVars";
 import { AwaitFunctions } from "staticScripts/awaitFunctions";
 
-function shuffleArray(array: Array<any>) {
+function shuffleArray<T>(array: Array<T>): Array<T> {
   let currentIndex = array.length;
-  let randomIndex;
 
-  // While there remain elements to shuffle
   while (currentIndex !== 0) {
     // Pick a remaining element
-    randomIndex = Math.floor(Math.random() * currentIndex);
+    let randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
     // And swap it with the current element
@@ -23,6 +21,18 @@ function shuffleArray(array: Array<any>) {
   return array;
 }
 
+function shuffleArrayEnsureChange<T>(array: Array<T>): Array<T> {
+  let shuffledArray = [...array];
+  let isSame = true;
+
+  while (isSame) {
+    shuffledArray = shuffleArray(shuffledArray);
+    isSame = array.every((value, index) => value === shuffledArray[index]);
+  }
+
+  return shuffledArray;
+}
+
 const eventTime = 300;
 const swapItemBetweenPlayers = async (
   container: Container,
@@ -31,12 +41,12 @@ const swapItemBetweenPlayers = async (
   for (let j = 0; j < container.size; j++) {
     await AwaitFunctions.waitTicks(Math.floor(eventTime / container.size));
     container.swapItems(j, j, otherContainer);
-    world.sendMessage(`Swapping item ${j} of ${container.size}`);
+    //world.sendMessage(`Swapping item ${j} of ${container.size}`);
   }
 };
 
 const swapItemStart = async () => {
-  let shuffledPlayers = shuffleArray(GlobalVars.players);
+  let shuffledPlayers = shuffleArrayEnsureChange(GlobalVars.players);
 
   let alreadyShuffled: Set<Player> = new Set();
 
@@ -54,6 +64,10 @@ const swapItemStart = async () => {
 
     const container = player.getComponent("inventory").container;
     const otherContainer = otherPlayer.getComponent("inventory").container;
+
+    world.sendMessage(
+      `Swapping items between ${player.nameTag} and ${otherPlayer.nameTag}`
+    );
     swapItemBetweenPlayers(otherContainer, container);
   }
 };
