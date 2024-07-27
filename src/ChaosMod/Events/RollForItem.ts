@@ -1,11 +1,13 @@
 import { EntityDamageCause, ItemStack, world } from "@minecraft/server";
 import { IChaosEvent } from "ChaosMod/IChaosEvent";
 import { GlobalVars } from "globalVars";
+import { Logger } from "staticScripts/Logger";
 import { workerData } from "worker_threads";
 const rollForItemstart = () => {
   world.sendMessage(`Rolling for Item...`);
 };
 
+//list of bad items
 const badItems = [
   "minecraft:dirt",
   "minecraft:pufferfish",
@@ -19,6 +21,7 @@ const badItems = [
   "minecraft:flint",
 ];
 
+//list of normal items
 const Items = [
   "minecraft:iron_axe",
   "minecraft:iron_sword",
@@ -30,6 +33,7 @@ const Items = [
   "minecraft:ender_pearl",
 ];
 
+//list of good items
 const goodItems = [
   "minecraft:nethterite_axe",
   "minecraft:nethterite_sword",
@@ -42,6 +46,7 @@ const goodItems = [
   "minecraft:totem_of_undying",
 ];
 
+//choosing the random items
 const chooseRandomBadItem = (): string => {
   return badItems[Math.floor(Math.random() * badItems.length)];
 };
@@ -59,6 +64,19 @@ const rollForItemEnd = () => {
     const roll = Math.floor(Math.random() * 20) + 1;
     const playerInventory = player.getComponent("inventory").container;
 
+    //finding empty and full inventory
+    const emptyinventory: number[] = [];
+    const fullinventory: number[] = [];
+    for (let i = 0; i < playerInventory.size; i++) {
+      const item = playerInventory.getItem(i);
+      if (item == undefined) {
+        emptyinventory.push(i);
+      } else {
+        fullinventory.push(i);
+      }
+    }
+
+    //rolling an d20 and giving items accordingly
     switch (roll) {
       case 1:
         world.sendMessage(
@@ -73,11 +91,17 @@ const rollForItemEnd = () => {
       case 2:
       case 3:
       case 4:
-        playerInventory.setItem(
-          Math.floor(Math.random() * playerInventory.size),
-          new ItemStack("minecraft:air")
-        );
-        player.sendMessage(`You rolled a ${roll}, so were taking an item`);
+        if (fullinventory.length > 0) {
+          playerInventory.setItem(
+            fullinventory[Math.floor(Math.random() * fullinventory.length)],
+            new ItemStack("minecraft:air")
+          );
+          player.sendMessage(`You rolled a ${roll}, so were taking an item`);
+        } else {
+          player.sendMessage(
+            `You rolled a ${roll}, but you don't have any items to take!`
+          );
+        }
         break;
       case 5:
       case 6:
@@ -91,33 +115,53 @@ const rollForItemEnd = () => {
       case 12:
       case 13:
       case 14:
-        playerInventory.setItem(
-          Math.floor(Math.random() * playerInventory.size),
-          new ItemStack(chooseRandomBadItem())
-        );
-        player.sendMessage(
-          `You rolled a ${roll}, so were giving you an random trash item!`
-        );
+        if (emptyinventory.length > 0) {
+          playerInventory.setItem(
+            emptyinventory[Math.floor(Math.random() * emptyinventory.length)],
+            new ItemStack(chooseRandomBadItem())
+          );
+          player.sendMessage(
+            `You rolled a ${roll}, so were giving you an random trash item!`
+          );
+        } else {
+          player.sendMessage(
+            `You rolled a ${roll}, but your Inventory is full!`
+          );
+        }
         break;
       case 15:
       case 16:
       case 17:
       case 18:
       case 19:
-        playerInventory.setItem(
-          Math.floor(Math.random() * playerInventory.size),
-          new ItemStack(chooseRandomItem())
-        );
-        player.sendMessage(`You rolled a ${roll}, so were giving you an Item!`);
+        if (emptyinventory.length > 0) {
+          playerInventory.setItem(
+            emptyinventory[Math.floor(Math.random() * emptyinventory.length)],
+            new ItemStack(chooseRandomItem())
+          );
+          player.sendMessage(
+            `You rolled a ${roll}, so were giving you an Item!`
+          );
+        } else {
+          player.sendMessage(
+            `You rolled a ${roll}, but your Inventory is full!`
+          );
+        }
         break;
       case 20:
-        playerInventory.setItem(
-          Math.floor(Math.random() * playerInventory.size),
-          new ItemStack(chooseRandomGoodItem())
-        );
-        player.sendMessage(
-          `You rolled a ${roll}, so were giving you an great Item!`
-        );
+        if (emptyinventory.length > 0) {
+          playerInventory.setItem(
+            emptyinventory[Math.floor(Math.random() * emptyinventory.length)],
+            new ItemStack(chooseRandomGoodItem())
+          );
+          player.sendMessage(
+            `You rolled a ${roll}, so were giving you an great Item!`
+          );
+        } else {
+          player.sendMessage(
+            `You rolled a ${roll}, but your Inventory is full!`
+          );
+        }
     }
   }
 };
