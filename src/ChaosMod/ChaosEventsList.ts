@@ -1,5 +1,6 @@
 import allEffects from "./Events/AllEffects";
 import blocksGoBoom from "./Events/BlocksGoBoom";
+import { floorIsLava } from "./Events/FloorIsLava";
 import { gravityShift } from "./Events/GravityShift";
 import { herobrineStalker } from "./Events/HerobrineStalker";
 import { invisibleMobs } from "./Events/InvisibleMobs";
@@ -18,6 +19,7 @@ import { IChaosEvent } from "./IChaosEvent";
 
 export const chaosEventsList: IChaosEvent[] = [
   blocksGoBoom,
+  floorIsLava,
   opeThereGoesGravity,
   TNTRun,
   randomEffect,

@@ -1,5 +1,6 @@
 import allEffects from "./Events/AllEffects";
 import blocksGoBoom from "./Events/BlocksGoBoom";
+import { floorIsLava } from "./Events/FloorIsLava";
 import { gravityShift } from "./Events/GravityShift";
 import { herobrineStalker } from "./Events/HerobrineStalker";
 import { invisibleMobs } from "./Events/InvisibleMobs";
@@ -16,6 +17,7 @@ import { typeOrDieTrying } from "./Events/TypeOrDie";
 import { zombieHorde } from "./Events/ZombieHorde";
 export const chaosEventsList = [
     blocksGoBoom,
+    floorIsLava,
     opeThereGoesGravity,
     TNTRun,
     randomEffect,
