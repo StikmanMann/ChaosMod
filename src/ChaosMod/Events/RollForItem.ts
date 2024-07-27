@@ -6,11 +6,41 @@ const rollForItemstart = () => {
   world.sendMessage(`Rolling for Item...`);
 };
 
-const badItems = ["minecraft:dirt_block"];
+const badItems = [
+  "minecraft:dirt",
+  "minecraft:pufferfish",
+  "minecraft:stick",
+  "minecraft:rotten_flesh",
+  "minecraft:bone_meal",
+  "minecraft:kelp",
+  "minecraft:poisonous_potato",
+  "minecraft:paper",
+  "minecraft:coal",
+  "minecraft:flint",
+];
 
-const Items = ["minecraft:iron_axe"];
+const Items = [
+  "minecraft:iron_axe",
+  "minecraft:iron_sword",
+  "minecraft:iron_helmet",
+  "minecraft:iron_chestplate",
+  "minecraft:iron_leggings",
+  "minecraft:iron_boots",
+  "minecraft:golden_carrot",
+  "minecraft:ender_pearl",
+];
 
-const goodItems = ["minecraft:nethterite_axe"];
+const goodItems = [
+  "minecraft:nethterite_axe",
+  "minecraft:nethterite_sword",
+  "minecraft:netherite_helmet",
+  "minecraft:netherite_chestplate",
+  "minecraft:netherite_leggings",
+  "minecraft:netherite_boots",
+  "minecraft:elytra",
+  "minecraft:enchanted_golden_apple",
+  "minecraft:totem_of_undying",
+];
 
 const chooseRandomBadItem = (): string => {
   return badItems[Math.floor(Math.random() * badItems.length)];
@@ -34,6 +64,9 @@ const rollForItemEnd = () => {
         world.sendMessage(
           `@${player.nameTag} was out of luck on this one :(, they rolled a 1`
         );
+        player.sendMessage(
+          `You rolled a ${roll}, so were taking all your items and killing you`
+        );
         playerInventory.clearAll();
         player.kill();
         break;
@@ -44,7 +77,7 @@ const rollForItemEnd = () => {
           Math.floor(Math.random() * playerInventory.size),
           new ItemStack("minecraft:air")
         );
-        player.sendMessage(`You rolled a ${roll}`);
+        player.sendMessage(`You rolled a ${roll}, so were taking an item`);
         break;
       case 5:
       case 6:
