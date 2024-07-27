@@ -91,7 +91,7 @@ const typeOrDieStop = () => {
     world.beforeEvents.chatSend.unsubscribe(typeorDieChatEvent);
     currentStatement = chooseRandomStatement();
 };
-const typeOrDieTrying = {
+export const typeOrDieTrying = {
     chaosEventId: "typeOrDie",
     chaosEventDisplayName: "Type the message or die trying",
     chaosEventUniqueId: "-1",
@@ -100,4 +100,4 @@ const typeOrDieTrying = {
     onChaosStop: typeOrDieStop,
     onChaosTick: () => { },
 };
-export default typeOrDieTrying;
+typeOrDieTrying;

@@ -112,8 +112,7 @@ const typeOrDieStop = () => {
 
   currentStatement = chooseRandomStatement();
 };
-
-const typeOrDieTrying: IChaosEvent = {
+export const typeOrDieTrying: IChaosEvent = {
   chaosEventId: "typeOrDie",
   chaosEventDisplayName: "Type the message or die trying",
 
@@ -126,4 +125,4 @@ const typeOrDieTrying: IChaosEvent = {
   onChaosTick: () => {},
 };
 
-export default typeOrDieTrying;
+typeOrDieTrying;

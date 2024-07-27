@@ -1,4 +1,4 @@
-import allEffects from "./Events/allEffects";
+import allEffects from "./Events/AllEffects";
 import blocksGoBoom from "./Events/BlocksGoBoom";
 import { gravityShift } from "./Events/GravityShift";
 import { herobrineStalker } from "./Events/HerobrineStalker";
@@ -12,7 +12,7 @@ import { stikSays } from "./Events/StikSays";
 import { swapItems } from "./Events/SwapItems";
 import { swapPositions } from "./Events/SwapPositions";
 import { TNTRun } from "./Events/TNTRun";
-import typeOrDieTrying from "./Events/typeOrDie";
+import { typeOrDieTrying } from "./Events/TypeOrDie";
 import { zombieHorde } from "./Events/ZombieHorde";
 import { IChaosEvent } from "./IChaosEvent";
 
