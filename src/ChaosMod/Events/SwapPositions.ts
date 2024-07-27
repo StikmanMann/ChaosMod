@@ -3,14 +3,12 @@ import { IChaosEvent } from "ChaosMod/IChaosEvent";
 import { GlobalVars } from "globalVars";
 
 // Function to shuffle an array using Fisher-Yates algorithm
-function shuffleArray(array: Array<any>) {
+function shuffleArray<T>(array: Array<T>): Array<T> {
   let currentIndex = array.length;
-  let randomIndex;
 
-  // While there remain elements to shuffle
   while (currentIndex !== 0) {
     // Pick a remaining element
-    randomIndex = Math.floor(Math.random() * currentIndex);
+    let randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
     // And swap it with the current element
@@ -23,14 +21,30 @@ function shuffleArray(array: Array<any>) {
   return array;
 }
 
+function shuffleArrayEnsureChange<T>(array: Array<T>): Array<T> {
+  if (array.length <= 1) {
+    return array;
+  }
+  let shuffledArray = [...array];
+  let isSame = true;
+
+  while (isSame) {
+    shuffledArray = shuffleArray(shuffledArray);
+    isSame = array.every((value, index) => value === shuffledArray[index]);
+  }
+
+  return shuffledArray;
+}
+
 const swapPositionsTick = () => {
   if (system.currentTick % 20 != 0) {
+    return;
   }
   let locations: Array<Vector3> = GlobalVars.players.map((player) => {
     return player.location;
   });
 
-  locations = shuffleArray(locations);
+  locations = shuffleArrayEnsureChange(locations);
   for (let i = 0; i < GlobalVars.players.length; i++) {
     const player = GlobalVars.players[i];
     player.teleport(locations[i]);
