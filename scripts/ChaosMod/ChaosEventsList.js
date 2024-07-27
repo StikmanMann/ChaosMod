@@ -6,6 +6,7 @@ import { herobrineStalker } from "./Events/HerobrineStalker";
 import { invisibleMobs } from "./Events/InvisibleMobs";
 import opeThereGoesGravity from "./Events/OpeThereGoesGravity";
 import { randomEffect } from "./Events/RandomEffect";
+import { redCoins } from "./Events/RedCoins";
 import { rollForHeal } from "./Events/RollForHeal";
 import { rollForItem } from "./Events/RollForItem";
 import { skatebording } from "./Events/Skateboarding";
@@ -33,4 +34,5 @@ export const chaosEventsList = [
     swapPositions,
     gravityShift,
     swapItems,
+    redCoins,
 ];
