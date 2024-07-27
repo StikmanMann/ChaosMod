@@ -3,11 +3,9 @@ import { GlobalVars } from "globalVars";
 // Function to shuffle an array using Fisher-Yates algorithm
 function shuffleArray(array) {
     let currentIndex = array.length;
-    let randomIndex;
-    // While there remain elements to shuffle
     while (currentIndex !== 0) {
         // Pick a remaining element
-        randomIndex = Math.floor(Math.random() * currentIndex);
+        let randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
         // And swap it with the current element
         [array[currentIndex], array[randomIndex]] = [
@@ -17,13 +15,26 @@ function shuffleArray(array) {
     }
     return array;
 }
+function shuffleArrayEnsureChange(array) {
+    if (array.length <= 1) {
+        return array;
+    }
+    let shuffledArray = [...array];
+    let isSame = true;
+    while (isSame) {
+        shuffledArray = shuffleArray(shuffledArray);
+        isSame = array.every((value, index) => value === shuffledArray[index]);
+    }
+    return shuffledArray;
+}
 const swapPositionsTick = () => {
     if (system.currentTick % 20 != 0) {
+        return;
     }
     let locations = GlobalVars.players.map((player) => {
         return player.location;
     });
-    locations = shuffleArray(locations);
+    locations = shuffleArrayEnsureChange(locations);
     for (let i = 0; i < GlobalVars.players.length; i++) {
         const player = GlobalVars.players[i];
         player.teleport(locations[i]);
