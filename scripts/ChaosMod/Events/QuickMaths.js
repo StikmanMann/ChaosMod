@@ -11,25 +11,30 @@ const questions = [
     "10 * 7,7 = ",
 ];
 const answers = ["19", "90", "49", "65", "77"];
-const successMessages = [
-    "Great job at doing §3Quick Maths!",
-    "Wow your cognitive ability is amazing!",
-    "Wow this is crazy how you calculated that!",
-    "With those calculating skills you should sign up at a championship!",
-    `I don't even know myself how to calculate ${currentQuestion}!`,
-];
-const loseMessages = [
-    `doesn't know how to calculate ${currentQuestion}`,
-    "suffers from cognititve malfunction",
-];
-const chooseRandomQuestion = () => {
-    return Math.floor(Math.random() * questions.length);
-};
 const chooseRandomSuccessMessage = () => {
-    return successMessages[Math.floor(Math.random() * successMessages.length)];
+    switch (Math.floor(Math.random() * (5 - 1 + 1)) + 1) {
+        case 1:
+            return "Great job at doing §3Quick Maths!";
+        case 2:
+            return "Wow your cognitive ability is amazing!";
+        case 3:
+            return "Wow this is crazy how you calculated that!";
+        case 4:
+            return "With those calculating skills you should sign up at a championship!";
+        case 5:
+            return `I don't even know myself how to calculate ${currentQuestion}!`;
+    }
 };
 const chooseRandomLoseMessage = () => {
-    return loseMessages[Math.floor(Math.random() * loseMessages.length)];
+    switch (Math.floor(Math.random() * (-1 + 1)) + 1) {
+        case 1:
+            return `doesn't know how to calculate ${currentQuestion}`;
+        case 2:
+            return "suffers from cognititve malfunction";
+    }
+};
+const chooseRandomQuestion = () => {
+    return Math.floor(Math.random() * questions.length);
 };
 const quickMathsEvent = (eventData) => {
     system.run(() => {
@@ -39,7 +44,6 @@ const quickMathsEvent = (eventData) => {
             player.addTag("isSafe");
             player.sendMessage(chooseRandomSuccessMessage());
         }
-        //world.sendMessage(`§a${player.nameTag}§r: ${message}`);
     });
 };
 const quickMathsStart = () => {
