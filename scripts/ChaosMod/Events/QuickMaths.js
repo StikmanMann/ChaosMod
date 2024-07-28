@@ -3,8 +3,14 @@ import { GlobalVars } from "globalVars";
 let currentQuestion;
 let currentAnswer;
 let numberwhich;
-const questions = ["9 + 10 = ", "9 * 10 = "];
-const answers = ["19", "90"];
+const questions = [
+    "9 + 10 = ",
+    "9 * 10 = ",
+    "7 *7 = ",
+    "13 * 5 = ",
+    "10 * 7,7 = ",
+];
+const answers = ["19", "90", "49", "65", "77"];
 const successMessages = [
     "Great job at doing §3Quick Maths!",
     "Wow your cognitive ability is amazing!",
@@ -40,7 +46,7 @@ const quickMathsStart = () => {
     numberwhich = chooseRandomQuestion();
     currentQuestion = questions[numberwhich];
     currentAnswer = answers[numberwhich];
-    world.sendMessage(`§aSay this or death :) : §r${currentQuestion}`);
+    world.sendMessage(`§aCalculate this or death :) : §r${currentQuestion}`);
     world.beforeEvents.chatSend.subscribe(quickMathsEvent);
 };
 const quickMathsStop = () => {
