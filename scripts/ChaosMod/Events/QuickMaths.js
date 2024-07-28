@@ -4,17 +4,53 @@ let currentQuestion;
 let currentAnswer;
 let numberwhich;
 const questions = [
-    "9 + 10 = ",
-    "9 * 10 = ",
-    "7 *7 = ",
-    "13 * 5 = ",
-    "10 * 7,7 = ",
+    "9 + 10 = ", //1
+    "9 * 10 = ", //2
+    "7 *7 = ", //3
+    "13 * 5 = ", //4
+    "10 * 7,7 = ", //5
+    "2 + 2 = 4 - 1 =", //6
+    "9 + 40 * 2 = ", //7
+    "3 * 4 + 2 = ", //8
+    "3 * 4 - 2 = ", //9
+    "3 * 4 * 2 = ", //10
+    "3 * 4 / 2 = ", //11
+    "9 + 9 * 9 = ", //12
+    "9 - 9 * 9 = ", //13
+    "7 + 5 - 3 + 18 = ", //14
+    "12 + 8 + 26 - 49 = ", //15
+    "12 + 11 + 26 - 49 = ", //16
+    "(12 + 11 + 26) * 2 = ", //17
+    "12 + 11 + 26 / 2 = ", //18
+    "12 + 11 + 152 = ", //19
+    "2 * 2 * 2 * 2 * 2 * 2 = ", //20
 ];
-const answers = ["19", "90", "49", "65", "77"];
+const answers = [
+    "19", //1
+    "90", //2
+    "49", //3
+    "65", //4
+    "77", //5
+    "3", //6
+    "89", //7
+    "14", //8
+    "10", //9
+    "24", //10
+    "6", //11
+    "90", //12
+    "-72", //13
+    "28", //14
+    "-3", //15
+    "0", //16
+    "98", //17
+    "36", //18
+    "185", //19
+    "64", //20
+];
 const chooseRandomSuccessMessage = () => {
     switch (Math.floor(Math.random() * (5 - 1 + 1)) + 1) {
         case 1:
-            return "Great job at doing §3Quick Maths!";
+            return "Great job at doing §3Quick Maths§r!";
         case 2:
             return "Wow your cognitive ability is amazing!";
         case 3:
@@ -26,7 +62,7 @@ const chooseRandomSuccessMessage = () => {
     }
 };
 const chooseRandomLoseMessage = () => {
-    switch (Math.floor(Math.random() * (-1 + 1)) + 1) {
+    switch (Math.floor(Math.random() * (2 - 1 + 1)) + 1) {
         case 1:
             return `doesn't know how to calculate ${currentQuestion}`;
         case 2:
