@@ -5,6 +5,7 @@ import { gravityShift } from "./Events/GravityShift";
 import { herobrineStalker } from "./Events/HerobrineStalker";
 import { invisibleMobs } from "./Events/InvisibleMobs";
 import opeThereGoesGravity from "./Events/OpeThereGoesGravity";
+import { quickMaths } from "./Events/QuickMaths";
 import { randomEffect } from "./Events/RandomEffect";
 import { redCoins } from "./Events/RedCoins";
 import { rollForHeal } from "./Events/RollForHeal";
@@ -17,22 +18,23 @@ import { TNTRun } from "./Events/TNTRun";
 import { typeOrDieTrying } from "./Events/TypeOrDie";
 import { zombieHorde } from "./Events/ZombieHorde";
 export const chaosEventsList = [
+    allEffects,
     blocksGoBoom,
     floorIsLava,
+    gravityShift,
+    herobrineStalker,
+    invisibleMobs,
     opeThereGoesGravity,
-    TNTRun,
+    quickMaths,
     randomEffect,
-    allEffects,
-    typeOrDieTrying,
-    stikSays,
-    zombieHorde,
+    redCoins,
     rollForHeal,
     rollForItem,
     skatebording,
-    herobrineStalker,
-    invisibleMobs,
-    swapPositions,
-    gravityShift,
+    stikSays,
     swapItems,
-    redCoins,
+    swapPositions,
+    TNTRun,
+    typeOrDieTrying,
+    zombieHorde,
 ];
