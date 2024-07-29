@@ -25,6 +25,7 @@ import type {
   StatusResponse,
 } from "./interfaces.js";
 import { Logger } from "staticScripts/Logger.js";
+import fetch from "./fetch/index.js";
 
 export class Ollama {
   protected readonly config: Config;

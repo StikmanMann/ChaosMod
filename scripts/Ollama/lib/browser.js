@@ -1,5 +1,6 @@
 import * as utils from "./utils.js";
 import { Logger } from "staticScripts/Logger.js";
+import fetch from "./fetch/index.js";
 export class Ollama {
     constructor(config) {
         this.ongoingStreamedRequests = [];
