@@ -12,7 +12,7 @@ export class Ollama {
             //);
         }
         //this.fetch = fetch;
-        this.fetch = config.fetch;
+        this.fetch = fetch;
         if (config?.fetch != null) {
             this.fetch = config.fetch;
         }

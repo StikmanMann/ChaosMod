@@ -28,7 +28,7 @@ import { Logger } from "staticScripts/Logger.js";
 
 export class Ollama {
   protected readonly config: Config;
-  protected readonly fetch: Fetch = ;
+  protected readonly fetch: Fetch;
   protected readonly ongoingStreamedRequests: utils.AbortableAsyncIterator<object>[] =
     [];
 
@@ -43,7 +43,7 @@ export class Ollama {
     }
 
     //this.fetch = fetch;
-    this.fetch = this.fetch
+    this.fetch = fetch;
     if (config?.fetch != null) {
       this.fetch = config.fetch;
     }
