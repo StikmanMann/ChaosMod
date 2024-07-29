@@ -34,3 +34,4 @@ import "ChaosMod/ChaosEventManager";
 import "betterChat";
 import { Logger } from "staticScripts/Logger";
 Logger.warn("Chaos script running!", "ChaosMod");
+import "Ollama/mainOllama";

@@ -31,7 +31,7 @@ const givePlayerRandomEffect = () => {
         catch { }
     }
 };
-const randomEffect = {
+export const randomEffect = {
     chaosEventId: "randomEffect",
     chaosEventDisplayName: "Random Effect",
     chaosEventUniqueId: "-1",
@@ -41,4 +41,3 @@ const randomEffect = {
     onChaosStop: () => { },
     onChaosTick: () => { },
 };
-export default randomEffect;
