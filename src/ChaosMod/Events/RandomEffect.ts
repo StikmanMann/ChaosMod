@@ -49,3 +49,5 @@ export const randomEffect: IChaosEvent = {
   onChaosStop: () => {},
   onChaosTick: () => {},
 };
+
+randomEffect;
