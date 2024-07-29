@@ -1,14 +1,14 @@
 {
   "format_version": 2,
   "metadata": {
-    "authors": ["StikmanMann", "CoderReal", "AliveJy", "HU0"],
+    "authors": ["StikmanMann", "CoderReal", "AliveJy", "HU0", "Jumper2006"],
     "generated_with": {
       "blockbench_item_wizard": ["1.0.2"]
     }
   },
   "header": {
     "name": "ChaosMod",
-    "description": "Mod by StikmanMann, CoderReal and AliveJy, HU0",
+    "description": "Mod by StikmanMann, CoderReal, (AliveJy, HU0) and Jumper2006",
     "min_engine_version": [1, 19, 50],
     "uuid": "293224d2-3f75-4558-8260-a814979f0a96",
     "version": [1, 0, 0]
