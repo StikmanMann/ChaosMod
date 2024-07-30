@@ -1,4 +1,4 @@
-import { ItemStack, world } from "@minecraft/server";
+import { ItemStack, world, } from "@minecraft/server";
 import { GlobalVars } from "globalVars";
 const rollForItemstart = () => {
     world.sendMessage(`Rolling for Item...`);
@@ -77,7 +77,7 @@ const rollForItemEnd = () => {
             case 3:
             case 4:
                 if (fullinventory.length > 0) {
-                    playerInventory.setItem(fullinventory[Math.floor(Math.random() * fullinventory.length)], new ItemStack("minecraft:air"));
+                    playerInventory.setItem(fullinventory[Math.floor(Math.random() * fullinventory.length)], undefined);
                     player.sendMessage(`You rolled a ${roll}, so were taking an item`);
                 }
                 else {

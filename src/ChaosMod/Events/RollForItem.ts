@@ -1,4 +1,10 @@
-import { EntityDamageCause, ItemStack, world } from "@minecraft/server";
+import {
+  EntityDamageCause,
+  ItemStack,
+  ItemType,
+  ItemTypes,
+  world,
+} from "@minecraft/server";
 import { IChaosEvent } from "ChaosMod/IChaosEvent";
 import { GlobalVars } from "globalVars";
 import { Logger } from "staticScripts/Logger";
@@ -94,7 +100,7 @@ const rollForItemEnd = () => {
         if (fullinventory.length > 0) {
           playerInventory.setItem(
             fullinventory[Math.floor(Math.random() * fullinventory.length)],
-            new ItemStack("minecraft:air")
+            undefined
           );
           player.sendMessage(`You rolled a ${roll}, so were taking an item`);
         } else {

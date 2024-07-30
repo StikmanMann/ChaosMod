@@ -66,7 +66,7 @@ const redCoinsEnd = () => {
           hasRedCoins = true;
           player.sendMessage("Congratulations you collected the 8 red coins");
         }
-        playerInventory.setItem(i, new ItemStack("minecraft:air"));
+        playerInventory.setItem(i, undefined);
         break;
       }
     }
