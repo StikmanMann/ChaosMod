@@ -23,7 +23,7 @@ export class LinkedList {
             current.next = newNode;
         }
         this.size++;
-        //Logger.warn(`Appended Node: ${JSON.stringify(data)}`);  
+        //Logger.warn(`Appended Node: ${JSON.stringify(data)}`);
     }
     // Delete a node by its value
     deleteNodeByValue(data) {
@@ -123,5 +123,9 @@ export class LinkedList {
             index++;
         }
         return null;
+    }
+    clear() {
+        this.head = null;
+        this.size = 0;
     }
 }

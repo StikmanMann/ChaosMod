@@ -63,6 +63,8 @@ ChaosEventManager.init = () => {
     world.scoreboard.removeObjective("chaosEvents");
 };
 ChaosEventManager.tick = () => {
+    if (ChaosEventSettings.pauseChaos)
+        return;
     _a.eventTick();
     _a.eventTimer();
     _a.DisplayState.showCurrentEventsScoreboard();
@@ -79,6 +81,8 @@ ChaosEventManager.eventTick = () => {
     });
 };
 ChaosEventManager.eventTimer = () => {
+    if (ChaosEventSettings.pauseChaosTimer)
+        return;
     _a.ticksTillNextEvent--;
     if (_a.ticksTillNextEvent <= 0) {
         _a.ticksTillNextEvent = _a.queuedEvent.timeTillNextEventOverride
@@ -103,6 +107,13 @@ ChaosEventManager.uniqueIdGenerator = (event) => {
     const randomNumber = Math.floor(Math.random() * 10000);
     const uniqueId = event.chaosEventId + randomNumber.toString();
     return uniqueId;
+};
+ChaosEventManager.stopAllEvents = () => {
+    _a.currentEvents.forEach((event) => {
+        event.onChaosStop();
+    });
+    _a.currentEvents.clear();
+    _a.init();
 };
 //#region Display
 ChaosEventManager.DisplayState = (_b = class {

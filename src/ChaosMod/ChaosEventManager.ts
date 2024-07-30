@@ -62,6 +62,7 @@ export class ChaosEventManager {
   };
 
   static tick = () => {
+    if (ChaosEventSettings.pauseChaos) return;
     this.eventTick();
     this.eventTimer();
     this.DisplayState.showCurrentEventsScoreboard();
@@ -79,6 +80,7 @@ export class ChaosEventManager {
   };
 
   static eventTimer = () => {
+    if (ChaosEventSettings.pauseChaosTimer) return;
     this.ticksTillNextEvent--;
 
     if (this.ticksTillNextEvent <= 0) {
@@ -125,6 +127,14 @@ export class ChaosEventManager {
 
     ChaosEventManager.currentEvents.deleteNodeByValue(event);
   }
+
+  static stopAllEvents = () => {
+    ChaosEventManager.currentEvents.forEach((event) => {
+      event.onChaosStop();
+    });
+    ChaosEventManager.currentEvents.clear();
+    this.init();
+  };
   //#region Display
   static DisplayState = class {
     static createInformationForNextEvent = (): String => {
