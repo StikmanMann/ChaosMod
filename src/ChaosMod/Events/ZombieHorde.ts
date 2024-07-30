@@ -11,7 +11,7 @@ const zombieHordeStart = () => {
   world.sendMessage(`§4The zombies are coming!`);
 };
 
-const zombieDelay = 5;
+const zombieDelay = 10;
 const zombieSpread = 50;
 const minimumDistance = 5;
 

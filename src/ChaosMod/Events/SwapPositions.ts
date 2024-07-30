@@ -37,7 +37,7 @@ function shuffleArrayEnsureChange<T>(array: Array<T>): Array<T> {
 }
 
 const swapPositionsTick = () => {
-  if (system.currentTick % 20 != 0) {
+  if (system.currentTick % 50 != 0) {
     return;
   }
   let locations: Array<Vector3> = GlobalVars.players.map((player) => {
@@ -56,7 +56,7 @@ export const swapPositions: IChaosEvent = {
   chaosEventDisplayName: "Swap Positions",
   chaosEventUniqueId: "-1",
   chaosEventTime: 300,
-  onChaosStart: swapPositionsTick,
+  onChaosStart: () => {},
   onChaosStop: () => {},
-  onChaosTick: () => {},
+  onChaosTick: swapPositionsTick,
 };
