@@ -6,6 +6,8 @@ const placeTNT = () => {
         return;
     }
     for (const player of GlobalVars.players) {
+        if (!player.isOnGround)
+            continue;
         player.dimension.setBlockPermutation(VectorFunctions.addVector(player.location, { x: 0, y: 0, z: 0 }), BlockPermutation.resolve("minecraft:wooden_pressure_plate"));
         player.dimension.setBlockPermutation(VectorFunctions.addVector(player.location, { x: 0, y: -1, z: 0 }), BlockPermutation.resolve("minecraft:tnt"));
     }

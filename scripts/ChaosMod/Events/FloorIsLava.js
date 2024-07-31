@@ -29,7 +29,7 @@ export const floorIsLava = {
     chaosEventId: "FloorIsLava",
     chaosEventDisplayName: "The Floor is lava",
     chaosEventUniqueId: "-1",
-    chaosEventTime: 2400,
+    chaosEventTime: 1800,
     onChaosStart: () => { },
     onChaosStop: () => { },
     onChaosTick: onLavaTick,

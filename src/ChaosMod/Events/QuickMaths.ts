@@ -90,6 +90,7 @@ const quickMathsEvent = (eventData: ChatSendBeforeEvent) => {
     const message = eventData.message;
     const player = eventData.sender;
     if (message == currentAnswer) {
+      eventData.cancel = true;
       player.addTag("isSafe");
       player.sendMessage(chooseRandomSuccessMessage());
     }

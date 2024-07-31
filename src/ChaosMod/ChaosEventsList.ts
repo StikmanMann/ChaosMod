@@ -4,8 +4,11 @@ import { floorIsLava } from "./Events/FloorIsLava";
 import { gravityShift } from "./Events/GravityShift";
 import { herobrineStalker } from "./Events/HerobrineStalker";
 import { invisibleMobs } from "./Events/InvisibleMobs";
+import { killAura } from "./Events/KillAura";
 import { metoerShower } from "./Events/MeteorShower";
+import { oneShot } from "./Events/OneShot";
 import opeThereGoesGravity from "./Events/OpeThereGoesGravity";
+import { payForItem } from "./Events/payForItem";
 import { quickMaths } from "./Events/QuickMaths";
 import { randomEffect } from "./Events/RandomEffect";
 import { redCoins } from "./Events/RedCoins";
@@ -25,7 +28,7 @@ export const chaosEventsList: IChaosEvent[] = [
   blocksGoBoom,
   floorIsLava,
   gravityShift,
-  herobrineStalker,
+  //herobrineStalker,
   invisibleMobs,
   opeThereGoesGravity,
   quickMaths,
@@ -41,4 +44,7 @@ export const chaosEventsList: IChaosEvent[] = [
   TNTRun,
   typeOrDieTrying,
   zombieHorde,
+  oneShot,
+  payForItem,
+  killAura,
 ];
