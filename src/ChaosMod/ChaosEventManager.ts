@@ -80,7 +80,16 @@ export class ChaosEventManager {
   };
 
   static eventTimer = () => {
-    if (ChaosEventSettings.pauseChaosTimer) return;
+    if (ChaosEventSettings.pauseChaosTimer) {
+      for (const player of GlobalVars.players) {
+        addActionbarMessage({
+          player: player,
+          message: "Chaos Event Timer Paused: !!chaos help",
+          lifetime: 0,
+        });
+      }
+      return;
+    }
     this.ticksTillNextEvent--;
 
     if (this.ticksTillNextEvent <= 0) {

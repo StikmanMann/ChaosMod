@@ -81,8 +81,16 @@ ChaosEventManager.eventTick = () => {
     });
 };
 ChaosEventManager.eventTimer = () => {
-    if (ChaosEventSettings.pauseChaosTimer)
+    if (ChaosEventSettings.pauseChaosTimer) {
+        for (const player of GlobalVars.players) {
+            addActionbarMessage({
+                player: player,
+                message: "Chaos Event Timer Paused: !!chaos help",
+                lifetime: 0,
+            });
+        }
         return;
+    }
     _a.ticksTillNextEvent--;
     if (_a.ticksTillNextEvent <= 0) {
         _a.ticksTillNextEvent = _a.queuedEvent.timeTillNextEventOverride
