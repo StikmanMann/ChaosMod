@@ -27,7 +27,7 @@ export const killAura: IChaosEvent = {
   chaosEventId: "killAura",
   chaosEventDisplayName: "Kill Aura",
   chaosEventUniqueId: "-1",
-  chaosEventTime: 0,
+  chaosEventTime: 2000,
   onChaosStart: () => {},
   onChaosStop: () => {},
   onChaosTick: killAuraTick,
