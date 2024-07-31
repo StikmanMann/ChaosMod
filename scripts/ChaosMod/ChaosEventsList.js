@@ -4,6 +4,7 @@ import { floorIsLava } from "./Events/FloorIsLava";
 import { gravityShift } from "./Events/GravityShift";
 import { herobrineStalker } from "./Events/HerobrineStalker";
 import { invisibleMobs } from "./Events/InvisibleMobs";
+import { metoerShower } from "./Events/MeteorShower";
 import opeThereGoesGravity from "./Events/OpeThereGoesGravity";
 import { quickMaths } from "./Events/QuickMaths";
 import { randomEffect } from "./Events/RandomEffect";
@@ -26,6 +27,7 @@ export const chaosEventsList = [
     invisibleMobs,
     opeThereGoesGravity,
     quickMaths,
+    metoerShower,
     randomEffect,
     redCoins,
     rollForHeal,

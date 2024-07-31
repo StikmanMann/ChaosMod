@@ -59,7 +59,7 @@ const herobrineStart = () => {
         let blockingBlock = player.dimension.getBlockFromRay(herobrinePos, VectorFunctions.subtractVector(player.location, herobrinePos));
         while (blockingBlock &&
             VectorFunctions.vectorLength(VectorFunctions.subtractVector(blockingBlock.block.location, player.location)) > 2) {
-            world.sendMessage("§a" + blockingBlock.block.typeId);
+            //world.sendMessage("§a" + blockingBlock.block.typeId);
             blockingBlock.block.setType("minecraft:air");
             blockingBlock.block.above(1).setType("minecraft:air");
             blockingBlock.block.below(1).setType("minecraft:air");
