@@ -1,4 +1,5 @@
 import allEffects from "./Events/AllEffects";
+import { arguing } from "./Events/Arguing";
 import blocksGoBoom from "./Events/BlocksGoBoom";
 import { floorIsLava } from "./Events/FloorIsLava";
 import { gravityShift } from "./Events/GravityShift";
@@ -22,6 +23,7 @@ import { typeOrDieTrying } from "./Events/TypeOrDie";
 import { zombieHorde } from "./Events/ZombieHorde";
 export const chaosEventsList = [
     allEffects,
+    arguing,
     blocksGoBoom,
     floorIsLava,
     gravityShift,

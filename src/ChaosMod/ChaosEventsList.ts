@@ -1,4 +1,5 @@
 import allEffects from "./Events/AllEffects";
+import { arguing } from "./Events/Arguing";
 import blocksGoBoom from "./Events/BlocksGoBoom";
 import { floorIsLava } from "./Events/FloorIsLava";
 import { gravityShift } from "./Events/GravityShift";
@@ -25,6 +26,7 @@ import { IChaosEvent } from "./IChaosEvent";
 
 export const chaosEventsList: IChaosEvent[] = [
   allEffects,
+  arguing,
   blocksGoBoom,
   floorIsLava,
   gravityShift,
