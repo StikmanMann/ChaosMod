@@ -81,5 +81,4 @@ export const rollForHeal: IChaosEvent = {
 
   onChaosStart: rollForHealstart,
   onChaosStop: rollForHealEnd,
-  onChaosTick: () => {},
 };

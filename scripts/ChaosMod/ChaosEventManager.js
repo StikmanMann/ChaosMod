@@ -76,7 +76,9 @@ ChaosEventManager.eventTick = () => {
             _a.removeEvent(event);
         }
         else {
-            event.onChaosTick();
+            if (event.onChaosTick) {
+                event.onChaosTick();
+            }
         }
     });
 };

@@ -58,5 +58,4 @@ export const rollForHeal = {
     timeTillNextEventOverride: 100,
     onChaosStart: rollForHealstart,
     onChaosStop: rollForHealEnd,
-    onChaosTick: () => { },
 };

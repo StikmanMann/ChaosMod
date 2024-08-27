@@ -74,7 +74,9 @@ export class ChaosEventManager {
       if (event.chaosEventTime <= 0) {
         this.removeEvent(event);
       } else {
-        event.onChaosTick();
+        if (event.onChaosTick) {
+          event.onChaosTick();
+        }
       }
     });
   };

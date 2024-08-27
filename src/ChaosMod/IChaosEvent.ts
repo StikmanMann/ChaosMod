@@ -13,5 +13,5 @@ export interface IChaosEvent {
 
   onChaosStart: () => void;
   onChaosStop: () => void;
-  onChaosTick: () => void;
+  onChaosTick?: () => void;
 }
