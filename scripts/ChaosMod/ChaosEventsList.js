@@ -1,3 +1,4 @@
+import { oneVsOne } from "./Events/1V1Arena";
 import allEffects from "./Events/AllEffects";
 import { arguing } from "./Events/Arguing";
 import blocksGoBoom from "./Events/BlocksGoBoom";
@@ -32,6 +33,7 @@ export const chaosEventsList = [
     opeThereGoesGravity,
     quickMaths,
     metoerShower,
+    oneVsOne,
     randomEffect,
     redCoins,
     rollForHeal,

@@ -1,4 +1,5 @@
 import { Vector3, world } from "@minecraft/server";
+import { IChaosEvent } from "ChaosMod/IChaosEvent";
 import { GlobalVars } from "globalVars";
 
 let locations: Vector3[] = [];
@@ -16,4 +17,12 @@ const oneVOneStart = () => {
       break;
     }
   }
+};
+
+export const oneVsOne: IChaosEvent = {
+  chaosEventId: "1v1Arena",
+  chaosEventDisplayName: "1v1 Arena",
+  chaosEventUniqueId: "1v1Arena",
+  chaosEventTime: 10000,
+  onChaosStart: oneVOneStart,
 };
