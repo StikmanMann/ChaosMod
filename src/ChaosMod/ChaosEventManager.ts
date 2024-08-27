@@ -121,7 +121,9 @@ export class ChaosEventManager {
   static addEvent(event: IChaosEvent) {
     ChaosEventManager.currentEvents.append(event);
     Logger.warn(`Added Event: ${event.chaosEventId}`, "Chaos Event Manager");
-    event.onChaosStart();
+    if (event.onChaosStart) {
+      event.onChaosStart();
+    }
   }
 
   static uniqueIdGenerator = (event: IChaosEvent): String => {
@@ -131,7 +133,9 @@ export class ChaosEventManager {
   };
 
   static removeEvent(event: IChaosEvent) {
-    event.onChaosStop();
+    if (event.onChaosStop) {
+      event.onChaosStop();
+    }
     const objective = world.scoreboard.getObjective("chaosEvents");
     objective?.removeParticipant(event.chaosEventDisplayName as string) ??
       Logger.warn("Objective not found.", "Remove Event");

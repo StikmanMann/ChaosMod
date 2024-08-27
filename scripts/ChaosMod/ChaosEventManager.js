@@ -41,10 +41,14 @@ export class ChaosEventManager {
     static addEvent(event) {
         _a.currentEvents.append(event);
         Logger.warn(`Added Event: ${event.chaosEventId}`, "Chaos Event Manager");
-        event.onChaosStart();
+        if (event.onChaosStart) {
+            event.onChaosStart();
+        }
     }
     static removeEvent(event) {
-        event.onChaosStop();
+        if (event.onChaosStop) {
+            event.onChaosStop();
+        }
         const objective = world.scoreboard.getObjective("chaosEvents");
         objective?.removeParticipant(event.chaosEventDisplayName) ??
             Logger.warn("Objective not found.", "Remove Event");

@@ -11,7 +11,7 @@ export interface IChaosEvent {
   /** Amount of ticks for the next event to start */
   timeTillNextEventOverride?: number;
 
-  onChaosStart: () => void;
-  onChaosStop: () => void;
+  onChaosStart?: () => void;
+  onChaosStop?: () => void;
   onChaosTick?: () => void;
 }
