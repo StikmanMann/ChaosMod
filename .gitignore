@@ -1,5 +1,4 @@
 /node_modules/
-/scripts/
 src/schitzomod.ts
 src/playerhealth.ts
 scripts/schitzomod.js
